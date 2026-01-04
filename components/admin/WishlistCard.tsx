@@ -165,6 +165,23 @@ export default function WishlistCard({
     }
   };
 
+  const handleUnclaimItem = async (itemId: string) => {
+    if (!confirm('Are you sure you want to unclaim this item? This action cannot be undone.')) return;
+
+    try {
+      await itemsApi.update(itemId, {
+        claimedByName: null,
+        claimedByNote: null,
+        claimedAt: null,
+      });
+      const items = await itemsApi.getAll(wishlist.id);
+      setWishlistItems(items);
+      onItemsChange();
+    } catch (error: any) {
+      alert(error.message || 'Failed to unclaim item');
+    }
+  };
+
   const editingItem = wishlistItems.find((item) => item.id === editingItemId);
 
   return (
@@ -309,11 +326,10 @@ export default function WishlistCard({
                       {wishlist.name}
                     </h3>
                     <span
-                      className={`inline-flex items-center px-2.5 py-1 rounded-full text-base font-medium ${
-                        wishlist.isPublic
-                          ? 'bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200'
-                          : 'bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-300'
-                      }`}
+                      className={`inline-flex items-center px-2.5 py-1 rounded-full text-base font-medium ${wishlist.isPublic
+                        ? 'bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200'
+                        : 'bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-300'
+                        }`}
                     >
                       {wishlist.isPublic ? 'Public' : 'Private'}
                     </span>
@@ -467,6 +483,7 @@ export default function WishlistCard({
                       onDelete={() => handleDeleteItem(item.id)}
                       onMoveUp={() => handleMoveItemUp(item.id)}
                       onMoveDown={() => handleMoveItemDown(item.id)}
+                      onUnclaim={() => handleUnclaimItem(item.id)}
                       isFirst={index === 0}
                       isLast={index === wishlistItems.length - 1}
                     />

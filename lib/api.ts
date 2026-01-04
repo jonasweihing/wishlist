@@ -248,13 +248,14 @@ export const claimingApi = {
     return handleResponse<{ claimToken: string; message: string }>(response);
   },
 
-  async unclaim(itemId: string) {
+  async unclaim(itemId: string, name: string) {
     const response = await fetch(`${API_BASE_URL}/public/items/${itemId}/unclaim`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       credentials: 'include',
+      body: JSON.stringify({ name }),
     });
-    return handleResponse<{ success: boolean; message: string }>(response);
+    return handleResponse<{ message: string; item: Item }>(response);
   },
 };
 

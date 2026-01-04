@@ -20,6 +20,7 @@ export default function PublicWishlist({ slug, showBackLink = true }: PublicWish
 
     // Claim form state
     const [claimingItemId, setClaimingItemId] = useState<string | null>(null);
+    const [claimName, setClaimName] = useState('');
     const [claimNote, setClaimNote] = useState('');
     const [isClaiming, setIsClaiming] = useState(false);
     const [claimError, setClaimError] = useState('');
@@ -27,6 +28,8 @@ export default function PublicWishlist({ slug, showBackLink = true }: PublicWish
     const [justClaimedNote, setJustClaimedNote] = useState('');
 
     // Unclaim state
+    const [unclaimingItemId, setUnclaimingItemId] = useState<string | null>(null);
+    const [unclaimName, setUnclaimName] = useState('');
     const [isUnclaiming, setIsUnclaiming] = useState(false);
     const [unclaimError, setUnclaimError] = useState('');
 
@@ -53,22 +56,37 @@ export default function PublicWishlist({ slug, showBackLink = true }: PublicWish
     const handleClaimItem = (itemId: string) => {
         setClaimingItemId(itemId);
         setClaimError('');
+        setClaimName('');
         setClaimNote('');
         setJustClaimedItemId(null);
+        setUnclaimingItemId(null);
+    };
+
+    const handleUnclaimClick = (itemId: string) => {
+        setUnclaimingItemId(itemId);
+        setUnclaimError('');
+        setUnclaimName('');
+        setClaimingItemId(null);
     };
 
     const handleSubmitClaim = async (e: React.FormEvent, itemId: string) => {
         e.preventDefault();
 
+        if (!claimName.trim()) {
+            setClaimError('Please enter your name');
+            return;
+        }
+
         setIsClaiming(true);
         setClaimError('');
 
         try {
-            await claimingApi.claim(itemId, undefined, claimNote);
+            await claimingApi.claim(itemId, claimName, claimNote);
 
             setJustClaimedItemId(itemId);
             setJustClaimedNote(claimNote);
             setClaimingItemId(null);
+            setClaimName('');
             setClaimNote('');
             fetchWishlist();
         } catch (err: any) {
@@ -78,8 +96,11 @@ export default function PublicWishlist({ slug, showBackLink = true }: PublicWish
         }
     };
 
-    const handleUnclaim = async (itemId: string) => {
-        if (!confirm('Are you sure you want to unclaim this item?')) {
+    const handleUnclaimSubmit = async (e: React.FormEvent, itemId: string) => {
+        e.preventDefault();
+
+        if (!unclaimName.trim()) {
+            setUnclaimError('Please enter your name');
             return;
         }
 
@@ -87,7 +108,9 @@ export default function PublicWishlist({ slug, showBackLink = true }: PublicWish
         setUnclaimError('');
 
         try {
-            await claimingApi.unclaim(itemId);
+            await claimingApi.unclaim(itemId, unclaimName);
+            setUnclaimingItemId(null);
+            setUnclaimName('');
             fetchWishlist();
         } catch (err: any) {
             setUnclaimError(err.message || 'Failed to unclaim item');
@@ -218,7 +241,7 @@ export default function PublicWishlist({ slug, showBackLink = true }: PublicWish
                                         <div className="flex flex-col md:flex-row">
                                             {/* Left: Image */}
                                             {item.imageUrl && (
-                                                <div className="md:w-48 md:flex-shrink-0">
+                                                <div className={`md:w-48 md:flex-shrink-0 ${item.claimedAt ? 'opacity-60' : ''}`}>
                                                     <img
                                                         src={item.imageUrl}
                                                         alt={item.name}
@@ -228,7 +251,7 @@ export default function PublicWishlist({ slug, showBackLink = true }: PublicWish
                                             )}
 
                                             {/* Middle: Item Details */}
-                                            <div className="flex-1 p-6">
+                                            <div className={`flex-1 p-6 ${item.claimedAt ? 'opacity-60' : ''}`}>
                                                 <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">
                                                     {item.name}
                                                 </h3>
@@ -241,7 +264,7 @@ export default function PublicWishlist({ slug, showBackLink = true }: PublicWish
 
                                             {/* Right: Action Area */}
                                             <div className="md:w-80 md:flex-shrink-0 p-6 bg-gray-50 dark:bg-gray-900/50 border-t md:border-t-0 md:border-l border-gray-200 dark:border-gray-700 flex flex-col">
-                                                <div className="mb-4">
+                                                <div className={`mb-4 ${item.claimedAt ? 'opacity-60' : ''}`}>
                                                     {item.purchaseUrls && item.purchaseUrls.length > 0 && (
                                                         <div className="space-y-2">
                                                             {item.purchaseUrls.map((url, idx) => (
@@ -290,7 +313,7 @@ export default function PublicWishlist({ slug, showBackLink = true }: PublicWish
                                                     ) : item.claimedAt ? (
                                                         <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded p-3">
                                                             <p className="text-sm font-medium text-green-800 dark:text-green-200">
-                                                                Claimed by {item.claimedByName}
+                                                                Claimed
                                                             </p>
                                                             {item.claimedByNote && (
                                                                 <p className="text-xs text-green-700 dark:text-green-300 mt-1">
@@ -303,13 +326,49 @@ export default function PublicWishlist({ slug, showBackLink = true }: PublicWish
                                                                 </p>
                                                             )}
                                                             {showClaimed && (
-                                                                <button
-                                                                    onClick={() => handleUnclaim(item.id)}
-                                                                    disabled={isUnclaiming}
-                                                                    className="mt-3 w-full px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 font-medium disabled:opacity-50 transition-colors cursor-pointer text-sm"
-                                                                >
-                                                                    {isUnclaiming ? 'Unclaiming...' : 'Unclaim Item'}
-                                                                </button>
+                                                                unclaimingItemId === item.id ? (
+                                                                    <div className="mt-3 bg-red-50 dark:bg-red-900/10 p-3 rounded-md border border-red-100 dark:border-red-900/30">
+                                                                        <form onSubmit={(e) => handleUnclaimSubmit(e, item.id)} className="space-y-3">
+                                                                            <p className="text-sm text-gray-700 dark:text-gray-300 font-medium">Verify your name to unclaim:</p>
+                                                                            {unclaimError && (
+                                                                                <div className="text-xs text-red-600 dark:text-red-400">
+                                                                                    {unclaimError}
+                                                                                </div>
+                                                                            )}
+                                                                            <input
+                                                                                type="text"
+                                                                                placeholder="Your Name"
+                                                                                className="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 dark:bg-gray-700 dark:text-white"
+                                                                                value={unclaimName}
+                                                                                onChange={(e) => setUnclaimName(e.target.value)}
+                                                                                required
+                                                                            />
+                                                                            <div className="flex gap-2">
+                                                                                <button
+                                                                                    type="button"
+                                                                                    onClick={() => setUnclaimingItemId(null)}
+                                                                                    className="flex-1 px-3 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-md text-sm hover:bg-gray-300 dark:hover:bg-gray-600 font-medium transition-colors"
+                                                                                >
+                                                                                    Cancel
+                                                                                </button>
+                                                                                <button
+                                                                                    type="submit"
+                                                                                    disabled={isUnclaiming}
+                                                                                    className="flex-1 px-3 py-2 bg-red-500 text-white rounded-md text-sm hover:bg-red-600 font-medium disabled:opacity-50 transition-colors"
+                                                                                >
+                                                                                    {isUnclaiming ? '...' : 'Unclaim'}
+                                                                                </button>
+                                                                            </div>
+                                                                        </form>
+                                                                    </div>
+                                                                ) : (
+                                                                    <button
+                                                                        onClick={() => handleUnclaimClick(item.id)}
+                                                                        className="mt-3 w-full px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 font-medium disabled:opacity-50 transition-colors cursor-pointer text-sm"
+                                                                    >
+                                                                        Unclaim Item
+                                                                    </button>
+                                                                )
                                                             )}
                                                         </div>
                                                     ) : claimingItemId === item.id ? (
@@ -320,6 +379,21 @@ export default function PublicWishlist({ slug, showBackLink = true }: PublicWish
                                                                         {claimError}
                                                                     </div>
                                                                 )}
+
+                                                                <div>
+                                                                    <label htmlFor={`claim-name-${item.id}`} className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                                                                        Your Name <span className="text-red-500">*</span>:
+                                                                    </label>
+                                                                    <input
+                                                                        id={`claim-name-${item.id}`}
+                                                                        type="text"
+                                                                        required
+                                                                        placeholder="Enter your name"
+                                                                        className="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 dark:bg-gray-700 dark:text-white"
+                                                                        value={claimName}
+                                                                        onChange={(e) => setClaimName(e.target.value)}
+                                                                    />
+                                                                </div>
 
                                                                 <div>
                                                                     <label htmlFor={`claim-note-${item.id}`} className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">

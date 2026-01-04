@@ -6,6 +6,7 @@ interface ItemCardProps {
   onDelete: () => void;
   onMoveUp: () => void;
   onMoveDown: () => void;
+  onUnclaim: () => void;
   isFirst: boolean;
   isLast: boolean;
 }
@@ -16,11 +17,12 @@ export default function ItemCard({
   onDelete,
   onMoveUp,
   onMoveDown,
+  onUnclaim,
   isFirst,
   isLast,
 }: ItemCardProps) {
   return (
-    <div className="bg-white dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-700 overflow-hidden">
+    <div className={`bg-white dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-700 overflow-hidden ${item.claimedAt ? 'bg-indigo-50 dark:bg-indigo-900/10 border-indigo-200 dark:border-indigo-800' : ''}`}>
       <div className="flex items-stretch">
         {/* Arrow buttons on the left */}
         <div className="flex flex-col w-12 border-r border-gray-200 dark:border-gray-700">
@@ -73,6 +75,29 @@ export default function ItemCard({
               <p className="text-base text-gray-500 dark:text-gray-400 mt-1">
                 ${item.price.toFixed(2)} {item.currency}
               </p>
+            )}
+
+            {/* Claim Info */}
+            {item.claimedAt && (
+              <div className="mt-3 p-2 bg-indigo-100 dark:bg-indigo-900/30 rounded border border-indigo-200 dark:border-indigo-800 text-sm">
+                <p className="text-indigo-900 dark:text-indigo-200 font-medium">
+                  Claimed by: {item.claimedByName || 'Unknown'}
+                </p>
+                {item.claimedByNote && (
+                  <p className="text-indigo-800 dark:text-indigo-300 italic mt-1">
+                    &quot;{item.claimedByNote}&quot;
+                  </p>
+                )}
+                <p className="text-indigo-700 dark:text-indigo-400 text-xs mt-1">
+                  At: {new Date(item.claimedAt).toLocaleString()}
+                </p>
+                <button
+                  onClick={onUnclaim}
+                  className="mt-2 text-xs bg-white dark:bg-indigo-900 text-indigo-700 dark:text-indigo-200 border border-indigo-300 dark:border-indigo-700 px-2 py-1 rounded hover:bg-indigo-50 dark:hover:bg-indigo-800 transition-colors"
+                >
+                  Unclaim (Admin)
+                </button>
+              </div>
             )}
           </div>
         </div>

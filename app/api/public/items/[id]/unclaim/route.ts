@@ -8,6 +8,8 @@ export async function POST(
 ) {
   try {
     const { id } = await params;
+    const body = await request.json();
+    const { name } = body;
 
     // Get the item
     const item = await db
@@ -52,7 +54,15 @@ export async function POST(
       );
     }
 
-    // Remove claim information (honor system - no verification)
+    // Verify name
+    if (!name || item[0].claimedByName?.toLowerCase().trim() !== name.toLowerCase().trim()) {
+      return NextResponse.json(
+        { error: 'Name does not match the person who claimed this item.' },
+        { status: 403 }
+      );
+    }
+
+    // Remove claim information
     const updatedItem = await db
       .update(wishlistItems)
       .set({

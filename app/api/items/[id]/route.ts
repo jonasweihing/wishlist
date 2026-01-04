@@ -97,6 +97,9 @@ export async function PATCH(
       imageUrl,
       purchaseUrls,
       isArchived,
+      claimedByName,
+      claimedByNote,
+      claimedAt,
     } = body;
 
     // Check if item exists
@@ -126,6 +129,9 @@ export async function PATCH(
     if (imageUrl !== undefined) updateData.imageUrl = imageUrl;
     if (purchaseUrls !== undefined) updateData.purchaseUrls = purchaseUrls;
     if (isArchived !== undefined) updateData.isArchived = isArchived;
+    if (claimedByName !== undefined) updateData.claimedByName = claimedByName;
+    if (claimedByNote !== undefined) updateData.claimedByNote = claimedByNote;
+    if (claimedAt !== undefined) updateData.claimedAt = claimedAt;
 
     // Update item
     const updatedItem = await db
