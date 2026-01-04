@@ -11,9 +11,6 @@ export default function Footer() {
   return (
     <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
       <div className="flex flex-col items-center gap-2 text-sm">
-        <div className="flex items-center gap-3 text-gray-500 dark:text-gray-400">
-          <p>Built for families</p>
-        </div>
         <div className="flex items-center gap-3">
           <Link
             href="/admin/login"
@@ -25,7 +22,7 @@ export default function Footer() {
             <>
               <span className="text-gray-400">•</span>
               <a
-                href="https://github.com/Reggio-Digital/wishlist"
+                href="https://github.com/jonasweihing/wishlist"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
