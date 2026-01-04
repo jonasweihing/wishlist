@@ -84,6 +84,11 @@ export default function PublicWishlist({ slug, showBackLink = true }: PublicWish
             setClaimingItemId(null);
             setClaimName('');
             fetchWishlist();
+
+            // Clear the "Item Claimed!" success message after 3 seconds
+            setTimeout(() => {
+                setJustClaimedItemId(null);
+            }, 3000);
         } catch (err: any) {
             setClaimError(err.message || 'Failed to claim item');
         } finally {
