@@ -108,7 +108,7 @@ export async function POST(
           .update(wishlists)
           .set({
             sortOrder: i,
-            updatedAt: new Date(),
+            updatedDate: new Date(),
           })
           .where(eq(wishlists.id, allWishlists[i].id));
       }

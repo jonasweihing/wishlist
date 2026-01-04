@@ -170,9 +170,9 @@ export default function WishlistCard({
 
     try {
       await itemsApi.update(itemId, {
-        claimedByName: null,
-        claimedByNote: null,
-        claimedAt: null,
+        claimedName: null,
+        claimedToken: null,
+        claimedDate: null,
       });
       const items = await itemsApi.getAll(wishlist.id);
       setWishlistItems(items);

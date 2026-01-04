@@ -111,7 +111,7 @@ export async function PATCH(
 
     // Build update object (only include provided fields)
     const updateData: any = {
-      updatedAt: new Date(),
+      updatedDate: new Date(),
     };
 
     if (name !== undefined) updateData.name = name;

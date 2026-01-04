@@ -22,7 +22,7 @@ export default function ItemCard({
   isLast,
 }: ItemCardProps) {
   return (
-    <div className={`bg-white dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-700 overflow-hidden ${item.claimedAt ? 'bg-indigo-50 dark:bg-indigo-900/10 border-indigo-200 dark:border-indigo-800' : ''}`}>
+    <div className={`bg-white dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-700 overflow-hidden ${item.claimedDate ? 'bg-indigo-50 dark:bg-indigo-900/10 border-indigo-200 dark:border-indigo-800' : ''}`}>
       <div className="flex items-stretch">
         {/* Arrow buttons on the left */}
         <div className="flex flex-col w-12 border-r border-gray-200 dark:border-gray-700">
@@ -78,24 +78,19 @@ export default function ItemCard({
             )}
 
             {/* Claim Info */}
-            {item.claimedAt && (
-              <div className="mt-3 p-2 bg-indigo-100 dark:bg-indigo-900/30 rounded border border-indigo-200 dark:border-indigo-800 text-sm">
-                <p className="text-indigo-900 dark:text-indigo-200 font-medium">
-                  Claimed by: {item.claimedByName || 'Unknown'}
-                </p>
-                {item.claimedByNote && (
-                  <p className="text-indigo-800 dark:text-indigo-300 italic mt-1">
-                    &quot;{item.claimedByNote}&quot;
-                  </p>
-                )}
-                <p className="text-indigo-700 dark:text-indigo-400 text-xs mt-1">
-                  At: {new Date(item.claimedAt).toLocaleString()}
-                </p>
+            {item.claimedDate && (
+              <div className="mt-3 flex items-center justify-between p-2 bg-indigo-50 dark:bg-indigo-900/30 rounded border border-indigo-100 dark:border-indigo-800 text-sm">
+                <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 text-indigo-900 dark:text-indigo-200">
+                  <span className="font-semibold">Claimed by {item.claimedName || 'Unknown'}</span>
+                  <span className="text-indigo-700 dark:text-indigo-400 text-xs text-nowrap">
+                    on {new Date(item.claimedDate).toLocaleDateString()}
+                  </span>
+                </div>
                 <button
                   onClick={onUnclaim}
-                  className="mt-2 text-xs bg-white dark:bg-indigo-900 text-indigo-700 dark:text-indigo-200 border border-indigo-300 dark:border-indigo-700 px-2 py-1 rounded hover:bg-indigo-50 dark:hover:bg-indigo-800 transition-colors"
+                  className="ml-2 text-xs bg-white dark:bg-indigo-900 text-indigo-700 dark:text-indigo-200 border border-indigo-200 dark:border-indigo-700 px-2 py-1 rounded hover:bg-indigo-50 dark:hover:bg-indigo-800 transition-colors shrink-0"
                 >
-                  Unclaim (Admin)
+                  Unclaim
                 </button>
               </div>
             )}

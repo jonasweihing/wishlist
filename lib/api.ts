@@ -67,8 +67,8 @@ export interface Wishlist {
   imageUrl: string | null;
   isPublic: boolean;
   sortOrder: number;
-  createdAt: string;
-  updatedAt: string;
+  createdDate: string;
+  updatedDate: string;
 }
 
 export interface Item {
@@ -82,13 +82,12 @@ export interface Item {
   imageUrl: string | null;
   purchaseUrls: Array<{ label: string; url: string }> | null;
   isArchived: boolean;
-  claimedByName: string | null;
-  claimedByNote: string | null;
-  claimedAt: string | null;
-  isPurchased: boolean;
+  claimedName: string | null;
+  claimedToken: string | null;
+  claimedDate: string | null;
   sortOrder: number;
-  createdAt: string;
-  updatedAt: string;
+  createdDate: string;
+  updatedDate: string;
 }
 
 // Wishlists API
@@ -238,12 +237,12 @@ export const itemsApi = {
 
 // Claiming API (public)
 export const claimingApi = {
-  async claim(itemId: string, name?: string, note?: string) {
+  async claim(itemId: string, name?: string) {
     const response = await fetch(`${API_BASE_URL}/public/items/${itemId}/claim`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       credentials: 'include',
-      body: JSON.stringify({ name, note }),
+      body: JSON.stringify({ name }),
     });
     return handleResponse<{ claimToken: string; message: string }>(response);
   },

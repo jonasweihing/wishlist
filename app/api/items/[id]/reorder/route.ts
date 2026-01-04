@@ -110,7 +110,7 @@ export async function POST(
           .update(wishlistItems)
           .set({
             sortOrder: i,
-            updatedAt: new Date(),
+            updatedDate: new Date(),
           })
           .where(eq(wishlistItems.id, allItems[i].id));
       }

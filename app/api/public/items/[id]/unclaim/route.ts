@@ -26,7 +26,7 @@ export async function POST(
     }
 
     // Check if item is actually claimed
-    if (!item[0].claimedByToken) {
+    if (!item[0].claimedToken) {
       return NextResponse.json(
         { error: 'Item is not claimed' },
         { status: 400 }
@@ -55,7 +55,7 @@ export async function POST(
     }
 
     // Verify name
-    if (!name || item[0].claimedByName?.toLowerCase().trim() !== name.toLowerCase().trim()) {
+    if (!name || item[0].claimedName?.toLowerCase().trim() !== name.toLowerCase().trim()) {
       return NextResponse.json(
         { error: 'Name does not match the person who claimed this item.' },
         { status: 403 }
@@ -66,12 +66,10 @@ export async function POST(
     const updatedItem = await db
       .update(wishlistItems)
       .set({
-        claimedByName: null,
-        claimedByNote: null,
-        claimedByToken: null,
-        claimedAt: null,
-        isPurchased: false,
-        updatedAt: new Date(),
+        claimedName: null,
+        claimedToken: null,
+        claimedDate: null,
+        updatedDate: new Date(),
       })
       .where(eq(wishlistItems.id, id))
       .returning();

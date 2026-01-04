@@ -21,11 +21,9 @@ export default function PublicWishlist({ slug, showBackLink = true }: PublicWish
     // Claim form state
     const [claimingItemId, setClaimingItemId] = useState<string | null>(null);
     const [claimName, setClaimName] = useState('');
-    const [claimNote, setClaimNote] = useState('');
     const [isClaiming, setIsClaiming] = useState(false);
     const [claimError, setClaimError] = useState('');
     const [justClaimedItemId, setJustClaimedItemId] = useState<string | null>(null);
-    const [justClaimedNote, setJustClaimedNote] = useState('');
 
     // Unclaim state
     const [unclaimingItemId, setUnclaimingItemId] = useState<string | null>(null);
@@ -57,7 +55,6 @@ export default function PublicWishlist({ slug, showBackLink = true }: PublicWish
         setClaimingItemId(itemId);
         setClaimError('');
         setClaimName('');
-        setClaimNote('');
         setJustClaimedItemId(null);
         setUnclaimingItemId(null);
     };
@@ -81,13 +78,11 @@ export default function PublicWishlist({ slug, showBackLink = true }: PublicWish
         setClaimError('');
 
         try {
-            await claimingApi.claim(itemId, claimName, claimNote);
+            await claimingApi.claim(itemId, claimName);
 
             setJustClaimedItemId(itemId);
-            setJustClaimedNote(claimNote);
             setClaimingItemId(null);
             setClaimName('');
-            setClaimNote('');
             fetchWishlist();
         } catch (err: any) {
             setClaimError(err.message || 'Failed to claim item');
@@ -121,7 +116,7 @@ export default function PublicWishlist({ slug, showBackLink = true }: PublicWish
 
     const filteredItems = showClaimed
         ? items
-        : items.filter((item) => !item.claimedAt || item.id === justClaimedItemId);
+        : items.filter((item) => !item.claimedDate || item.id === justClaimedItemId);
 
     const formatPrice = (price: number | null, currency: string) => {
         if (!price) return null;
@@ -241,7 +236,7 @@ export default function PublicWishlist({ slug, showBackLink = true }: PublicWish
                                         <div className="flex flex-col md:flex-row">
                                             {/* Left: Image */}
                                             {item.imageUrl && (
-                                                <div className={`md:w-48 md:flex-shrink-0 ${item.claimedAt ? 'opacity-60' : ''}`}>
+                                                <div className={`md:w-48 md:flex-shrink-0 ${item.claimedDate ? 'opacity-60' : ''}`}>
                                                     <img
                                                         src={item.imageUrl}
                                                         alt={item.name}
@@ -251,7 +246,7 @@ export default function PublicWishlist({ slug, showBackLink = true }: PublicWish
                                             )}
 
                                             {/* Middle: Item Details */}
-                                            <div className={`flex-1 p-6 ${item.claimedAt ? 'opacity-60' : ''}`}>
+                                            <div className={`flex-1 p-6 ${item.claimedDate ? 'opacity-60' : ''}`}>
                                                 <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">
                                                     {item.name}
                                                 </h3>
@@ -264,7 +259,7 @@ export default function PublicWishlist({ slug, showBackLink = true }: PublicWish
 
                                             {/* Right: Action Area */}
                                             <div className="md:w-80 md:flex-shrink-0 p-6 bg-gray-50 dark:bg-gray-900/50 border-t md:border-t-0 md:border-l border-gray-200 dark:border-gray-700 flex flex-col">
-                                                <div className={`mb-4 ${item.claimedAt ? 'opacity-60' : ''}`}>
+                                                <div className={`mb-4 ${item.claimedDate ? 'opacity-60' : ''}`}>
                                                     {item.purchaseUrls && item.purchaseUrls.length > 0 && (
                                                         <div className="space-y-2">
                                                             {item.purchaseUrls.map((url, idx) => (
@@ -301,30 +296,12 @@ export default function PublicWishlist({ slug, showBackLink = true }: PublicWish
                                                             <p className="text-center text-lg font-semibold text-gray-900 dark:text-white mb-1">
                                                                 Item Claimed!
                                                             </p>
-                                                            <p className="text-center text-sm text-gray-600 dark:text-gray-400 mb-2">
-                                                                The status is now locked.
-                                                            </p>
-                                                            {justClaimedNote && (
-                                                                <p className="text-center text-xs text-gray-600 dark:text-gray-400 italic">
-                                                                    Your Note: &quot;{justClaimedNote}&quot;
-                                                                </p>
-                                                            )}
                                                         </div>
-                                                    ) : item.claimedAt ? (
+                                                    ) : item.claimedDate ? (
                                                         <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded p-3">
                                                             <p className="text-sm font-medium text-green-800 dark:text-green-200">
-                                                                Claimed
+                                                                Already claimed!
                                                             </p>
-                                                            {item.claimedByNote && (
-                                                                <p className="text-xs text-green-700 dark:text-green-300 mt-1">
-                                                                    Note: {item.claimedByNote}
-                                                                </p>
-                                                            )}
-                                                            {item.isPurchased && (
-                                                                <p className="text-xs text-green-700 dark:text-green-300 mt-1 font-medium">
-                                                                    ✓ Purchased
-                                                                </p>
-                                                            )}
                                                             {showClaimed && (
                                                                 unclaimingItemId === item.id ? (
                                                                     <div className="mt-3 bg-red-50 dark:bg-red-900/10 p-3 rounded-md border border-red-100 dark:border-red-900/30">
@@ -392,20 +369,6 @@ export default function PublicWishlist({ slug, showBackLink = true }: PublicWish
                                                                         className="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 dark:bg-gray-700 dark:text-white"
                                                                         value={claimName}
                                                                         onChange={(e) => setClaimName(e.target.value)}
-                                                                    />
-                                                                </div>
-
-                                                                <div>
-                                                                    <label htmlFor={`claim-note-${item.id}`} className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                                                                        Add a Note (Optional):
-                                                                    </label>
-                                                                    <textarea
-                                                                        id={`claim-note-${item.id}`}
-                                                                        rows={3}
-                                                                        placeholder="Let them know your plans! e.g., 'Buying this next week' or 'Found a great deal online' or 'Need to check the size first'"
-                                                                        className="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 dark:bg-gray-700 dark:text-white resize-none"
-                                                                        value={claimNote}
-                                                                        onChange={(e) => setClaimNote(e.target.value)}
                                                                     />
                                                                 </div>
 

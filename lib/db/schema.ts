@@ -17,12 +17,12 @@ export const wishlists = sqliteTable('wishlists', {
   name: text('name').notNull(),
   slug: text('slug').notNull().unique(),
   description: text('description'),
-  preferences: text('preferences'), // General interests/likes section
+  preferences: text('preferences'),
   imageUrl: text('image_url'),
   isPublic: integer('is_public', { mode: 'boolean' }).notNull().default(false),
   sortOrder: integer('sort_order').notNull().default(0),
-  createdAt: integer('created_at', { mode: 'timestamp' }).notNull().default(sql`(unixepoch())`),
-  updatedAt: integer('updated_at', { mode: 'timestamp' }).notNull().default(sql`(unixepoch())`),
+  createdDate: integer('created_date', { mode: 'timestamp' }).notNull().default(sql`(unixepoch())`),
+  updatedDate: integer('updated_date', { mode: 'timestamp' }).notNull().default(sql`(unixepoch())`),
 });
 
 // Wishlist items table
@@ -39,19 +39,16 @@ export const wishlistItems = sqliteTable('wishlist_items', {
     label: string;
     url: string;
   }>>(),
-
   isArchived: integer('is_archived', { mode: 'boolean' }).notNull().default(false),
 
   // Claim information
-  claimedByName: text('claimed_by_name'),
-  claimedByNote: text('claimed_by_note'),
-  claimedByToken: text('claimed_by_token').unique(),
-  claimedAt: integer('claimed_at', { mode: 'timestamp' }),
-  isPurchased: integer('is_purchased', { mode: 'boolean' }).notNull().default(false),
+  claimedName: text('claimed_name'),
+  claimedToken: text('claimed_token').unique(),
+  claimedDate: integer('claimed_date', { mode: 'timestamp' }),
 
   sortOrder: integer('sort_order').notNull().default(0),
-  createdAt: integer('created_at', { mode: 'timestamp' }).notNull().default(sql`(unixepoch())`),
-  updatedAt: integer('updated_at', { mode: 'timestamp' }).notNull().default(sql`(unixepoch())`),
+  createdDate: integer('created_date', { mode: 'timestamp' }).notNull().default(sql`(unixepoch())`),
+  updatedDate: integer('updated_date', { mode: 'timestamp' }).notNull().default(sql`(unixepoch())`),
 });
 
 // Settings table
@@ -59,7 +56,7 @@ export const settings = sqliteTable('settings', {
   id: text('id').primaryKey().$defaultFn(() => createId()),
   key: text('key').notNull().unique(),
   value: text('value').notNull(),
-  updatedAt: integer('updated_at', { mode: 'timestamp' }).notNull().default(sql`(unixepoch())`),
+  updatedDate: integer('updated_date', { mode: 'timestamp' }).notNull().default(sql`(unixepoch())`),
 });
 
 // Type exports

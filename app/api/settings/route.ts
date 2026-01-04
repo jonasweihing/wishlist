@@ -73,7 +73,7 @@ export async function PUT(request: NextRequest) {
       if (existing.length > 0) {
         await db
           .update(settings)
-          .set({ value: siteTitle, updatedAt: new Date() })
+          .set({ value: siteTitle, updatedDate: new Date() })
           .where(eq(settings.key, 'siteTitle'));
       } else {
         await db.insert(settings).values({
@@ -94,7 +94,7 @@ export async function PUT(request: NextRequest) {
       if (existing.length > 0) {
         await db
           .update(settings)
-          .set({ value: homepageSubtext, updatedAt: new Date() })
+          .set({ value: homepageSubtext, updatedDate: new Date() })
           .where(eq(settings.key, 'homepageSubtext'));
       } else {
         await db.insert(settings).values({
@@ -116,7 +116,7 @@ export async function PUT(request: NextRequest) {
       if (existing.length > 0) {
         await db
           .update(settings)
-          .set({ value, updatedAt: new Date() })
+          .set({ value, updatedDate: new Date() })
           .where(eq(settings.key, 'passwordLockEnabled'));
       } else {
         await db.insert(settings).values({
@@ -140,7 +140,7 @@ export async function PUT(request: NextRequest) {
       if (existing.length > 0) {
         await db
           .update(settings)
-          .set({ value: hash, updatedAt: new Date() })
+          .set({ value: hash, updatedDate: new Date() })
           .where(eq(settings.key, 'passwordLockHash'));
       } else {
         await db.insert(settings).values({
@@ -161,7 +161,7 @@ export async function PUT(request: NextRequest) {
       if (existing.length > 0) {
         await db
           .update(settings)
-          .set({ value: landingPageSlug, updatedAt: new Date() })
+          .set({ value: landingPageSlug, updatedDate: new Date() })
           .where(eq(settings.key, 'landingPageSlug'));
       } else {
         await db.insert(settings).values({

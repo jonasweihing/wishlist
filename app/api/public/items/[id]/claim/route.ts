@@ -10,7 +10,7 @@ export async function POST(
   try {
     const { id } = await params;
     const body = await request.json();
-    const { name, note } = body;
+    const { name } = body;
 
     // Get the item
     const item = await db
@@ -27,7 +27,7 @@ export async function POST(
     }
 
     // Check if item is already claimed
-    if (item[0].claimedByToken) {
+    if (item[0].claimedToken) {
       return NextResponse.json(
         { error: 'Item is already claimed' },
         { status: 409 }
@@ -62,11 +62,10 @@ export async function POST(
     const updatedItem = await db
       .update(wishlistItems)
       .set({
-        claimedByName: name || null,
-        claimedByNote: note || null,
-        claimedByToken: claimToken,
-        claimedAt: new Date(),
-        updatedAt: new Date(),
+        claimedName: name || null,
+        claimedToken: claimToken,
+        claimedDate: new Date(),
+        updatedDate: new Date(),
       })
       .where(eq(wishlistItems.id, id))
       .returning();
