@@ -142,7 +142,7 @@ export default function PublicWishlist({ slug, showBackLink = true }: PublicWish
                     <div className="px-4 sm:px-0">
                         {showBackLink && (
                             <a
-                                href="/"
+                                href="/overview"
                                 className="inline-flex items-center text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 mb-6 transition-colors cursor-pointer"
                             >
                                 <svg
@@ -158,7 +158,7 @@ export default function PublicWishlist({ slug, showBackLink = true }: PublicWish
                                         d="M10 19l-7-7m0 0l7-7m-7 7h18"
                                     />
                                 </svg>
-                                Back to Home
+                                Back to Overview
                             </a>
                         )}
 

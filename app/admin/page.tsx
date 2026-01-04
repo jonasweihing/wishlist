@@ -169,7 +169,7 @@ export default function AdminPage() {
                 <StatsGrid stats={stats} />
 
                 {/* Settings Section */}
-                <SettingsSection settings={settings} onUpdate={handleUpdateSettings} />
+                <SettingsSection settings={settings} wishlists={wishlists} onUpdate={handleUpdateSettings} />
 
                 {/* Wishlists Section */}
                 <div className="mb-6">

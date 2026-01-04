@@ -60,7 +60,7 @@ export async function PUT(request: NextRequest) {
     }
 
     const body = await request.json();
-    const { siteTitle, homepageSubtext, passwordLockEnabled, passwordLock } = body;
+    const { siteTitle, homepageSubtext, passwordLockEnabled, passwordLock, landingPageSlug } = body;
 
     // Update or insert siteTitle
     if (siteTitle !== undefined) {
@@ -146,6 +146,27 @@ export async function PUT(request: NextRequest) {
         await db.insert(settings).values({
           key: 'passwordLockHash',
           value: hash,
+        });
+      }
+    }
+
+    // Update or insert landingPageSlug
+    if (landingPageSlug !== undefined) {
+      const existing = await db
+        .select()
+        .from(settings)
+        .where(eq(settings.key, 'landingPageSlug'))
+        .limit(1);
+
+      if (existing.length > 0) {
+        await db
+          .update(settings)
+          .set({ value: landingPageSlug, updatedAt: new Date() })
+          .where(eq(settings.key, 'landingPageSlug'));
+      } else {
+        await db.insert(settings).values({
+          key: 'landingPageSlug',
+          value: landingPageSlug,
         });
       }
     }

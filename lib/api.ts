@@ -287,6 +287,7 @@ export interface Settings {
   homepageSubtext: string;
   passwordLockEnabled?: boolean;
   passwordLock?: string;
+  landingPageSlug?: string;
 }
 
 export const settingsApi = {

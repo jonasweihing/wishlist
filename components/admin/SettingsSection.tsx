@@ -1,17 +1,20 @@
 'use client';
 
 import { useState } from 'react';
-import { type Settings } from '@/lib/api';
+import { type Settings, type Wishlist } from '@/lib/api';
 
 interface SettingsSectionProps {
   settings: Settings;
+  wishlists: Wishlist[];
   onUpdate: (settings: Settings) => Promise<void>;
 }
 
-export default function SettingsSection({ settings, onUpdate }: SettingsSectionProps) {
+export default function SettingsSection({ settings, wishlists, onUpdate }: SettingsSectionProps) {
   const [editingSettings, setEditingSettings] = useState(false);
   const [settingsForm, setSettingsForm] = useState<Settings>(settings);
   const [settingsError, setSettingsError] = useState('');
+
+  const publicWishlists = wishlists.filter((w) => w.isPublic);
 
   const startEditingSettings = () => {
     setEditingSettings(true);
@@ -34,6 +37,14 @@ export default function SettingsSection({ settings, onUpdate }: SettingsSectionP
     } catch (error: any) {
       setSettingsError(error.message || 'Failed to update settings');
     }
+  };
+
+  const getLandingPageLabel = () => {
+    if (!settings.landingPageSlug) {
+      return 'Overview Page (Show all wishlists)';
+    }
+    const wishlist = wishlists.find((w) => w.slug === settings.landingPageSlug);
+    return wishlist ? `Wishlist: ${wishlist.name}` : `Wishlist (Slug: ${settings.landingPageSlug} - Not Found)`;
   };
 
   return (
@@ -97,6 +108,32 @@ export default function SettingsSection({ settings, onUpdate }: SettingsSectionP
                   This appears below the title on the homepage
                 </p>
               </div>
+
+              <div>
+                <label className="block text-base font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Landing Page
+                </label>
+                <select
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:text-white"
+                  value={settingsForm.landingPageSlug || ''}
+                  onChange={(e) =>
+                    setSettingsForm((prev) => ({ ...prev, landingPageSlug: e.target.value || undefined }))
+                  }
+                >
+                  <option value="">Overview Page (Show all wishlists)</option>
+                  <optgroup label="Public Wishlists">
+                    {publicWishlists.map((wishlist) => (
+                      <option key={wishlist.id} value={wishlist.slug}>
+                        {wishlist.name}
+                      </option>
+                    ))}
+                  </optgroup>
+                </select>
+                <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                  Choose what visitors see when they visit the main page
+                </p>
+              </div>
+
               <div className="pt-4 border-t border-gray-200 dark:border-gray-700">
                 <div className="flex items-center mb-3">
                   <input
@@ -160,6 +197,10 @@ export default function SettingsSection({ settings, onUpdate }: SettingsSectionP
               <div>
                 <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Homepage Subtext</p>
                 <p className="text-base text-gray-900 dark:text-white">{settings.homepageSubtext}</p>
+              </div>
+              <div>
+                <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Landing Page</p>
+                <p className="text-base text-gray-900 dark:text-white">{getLandingPageLabel()}</p>
               </div>
               <div className="pt-3 border-t border-gray-200 dark:border-gray-700">
                 <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Password Lock</p>
