@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import { type Wishlist, type Item, itemsApi } from '@/lib/api';
 import ImageUpload from '@/components/image-upload';
-import RichTextEditor from '@/components/RichTextEditor';
 import ItemCard from './ItemCard';
 import ItemForm from './ItemForm';
 
@@ -35,7 +34,6 @@ export default function WishlistCard({
     name: '',
     slug: '',
     description: '',
-    preferences: '',
     imageUrl: '',
     isPublic: true,
   });
@@ -53,7 +51,6 @@ export default function WishlistCard({
       name: wishlist.name,
       slug: wishlist.slug,
       description: wishlist.description || '',
-      preferences: wishlist.preferences || '',
       imageUrl: wishlist.imageUrl || '',
       isPublic: wishlist.isPublic,
     });
@@ -327,16 +324,7 @@ export default function WishlistCard({
                       rows={2}
                     />
                   </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                      Preferences
-                    </label>
-                    <RichTextEditor
-                      value={editForm.preferences}
-                      onChange={(html) => setEditForm((prev) => ({ ...prev, preferences: html }))}
-                      placeholder="General interests and preferences..."
-                    />
-                  </div>
+
                   <p className="text-base text-gray-500 dark:text-gray-500">
                     {itemCount} items
                   </p>

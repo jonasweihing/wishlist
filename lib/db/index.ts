@@ -57,7 +57,6 @@ export async function initializeDatabase() {
         name TEXT NOT NULL,
         slug TEXT NOT NULL UNIQUE,
         description TEXT,
-        preferences TEXT,
         image_url TEXT,
         notes TEXT,
         is_public INTEGER DEFAULT 0 NOT NULL,

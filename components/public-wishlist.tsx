@@ -185,26 +185,7 @@ export default function PublicWishlist({ slug, showBackLink = true }: PublicWish
                             </a>
                         )}
 
-                        {/* Preferences Section */}
-                        {wishlist.preferences && (
-                            <div className="mb-8 bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-                                <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
-                                    General Interests & Preferences
-                                </h2>
-                                <div
-                                    className="prose prose-indigo dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 [&_a]:text-indigo-600 [&_a]:dark:text-indigo-400 [&_a]:hover:underline"
-                                    dangerouslySetInnerHTML={{ __html: wishlist.preferences }}
-                                    onClick={(e) => {
-                                        // Make all links open in new tab
-                                        const target = e.target as HTMLElement;
-                                        if (target.tagName === 'A') {
-                                            e.preventDefault();
-                                            window.open((target as HTMLAnchorElement).href, '_blank', 'noopener,noreferrer');
-                                        }
-                                    }}
-                                />
-                            </div>
-                        )}
+
 
                         {/* Controls Toolbar */}
                         <div className="mb-8 grid grid-cols-1 sm:grid-cols-3 items-center gap-4">
