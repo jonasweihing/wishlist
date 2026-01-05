@@ -94,6 +94,15 @@ export default function ItemCard({
                 </button>
               </div>
             )}
+
+            <div className="mt-2 flex gap-3 text-xs text-gray-400 dark:text-gray-500">
+              <span title={new Date(item.createdDate).toLocaleString()}>
+                Created: {new Date(item.createdDate).toLocaleDateString()}
+              </span>
+              <span title={new Date(item.updatedDate).toLocaleString()}>
+                Updated: {new Date(item.updatedDate).toLocaleDateString()}
+              </span>
+            </div>
           </div>
         </div>
         <div className="flex flex-col w-16 border-l border-gray-200 dark:border-gray-700">

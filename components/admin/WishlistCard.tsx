@@ -342,9 +342,19 @@ export default function WishlistCard({
                       {wishlist.description}
                     </p>
                   )}
-                  <p className="text-base text-gray-500 dark:text-gray-500">
-                    {itemCount} items
-                  </p>
+                  <div className="flex flex-col gap-1 mt-2">
+                    <p className="text-base text-gray-500 dark:text-gray-500">
+                      {itemCount} items
+                    </p>
+                    <div className="flex gap-4 text-xs text-gray-400 dark:text-gray-500">
+                      <span title={new Date(wishlist.createdDate).toLocaleString()}>
+                        Created: {new Date(wishlist.createdDate).toLocaleDateString()}
+                      </span>
+                      <span title={new Date(wishlist.updatedDate).toLocaleString()}>
+                        Updated: {new Date(wishlist.updatedDate).toLocaleDateString()}
+                      </span>
+                    </div>
+                  </div>
                 </div>
               </div>
             )}

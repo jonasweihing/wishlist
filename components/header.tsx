@@ -29,7 +29,7 @@ export default function Header({ title, subtitle, imageUrl, actions, maxWidth = 
       {/* Hero Section */}
       <div className="bg-white dark:bg-gray-800 shadow-sm">
         <div className={`${maxWidth} mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8`}>
-          <div className="flex flex-col md:flex-row items-center md:items-start gap-8">
+          <div className="flex flex-col md:flex-row items-center md:items-stretch gap-8">
             {imageUrl && (
               <div className="md:w-64 flex-shrink-0">
                 <img
@@ -39,17 +39,17 @@ export default function Header({ title, subtitle, imageUrl, actions, maxWidth = 
                 />
               </div>
             )}
-            <div className={imageUrl ? 'flex-1 text-left' : 'flex-1 text-center'}>
+            <div className={`flex-1 flex flex-col ${imageUrl ? 'text-left items-start' : 'text-center items-center'}`}>
               <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-gray-900 dark:text-white mb-4">
                 {title}
               </h1>
               {subtitle && (
-                <p className={`text-xl sm:text-2xl text-gray-600 dark:text-gray-300 mb-6 ${imageUrl ? '' : 'max-w-3xl mx-auto'}`}>
+                <p className={`text-xl sm:text-2xl text-gray-600 dark:text-gray-300 mb-6 ${imageUrl ? '' : 'max-w-3xl'}`}>
                   {subtitle}
                 </p>
               )}
               {actions && (
-                <div className={`flex flex-col sm:flex-row items-center gap-3 ${imageUrl ? 'justify-start' : 'justify-center'}`}>
+                <div className={`mt-auto flex flex-col sm:flex-row items-center gap-3 ${imageUrl ? 'justify-start' : 'justify-center'}`}>
                   {actions}
                 </div>
               )}

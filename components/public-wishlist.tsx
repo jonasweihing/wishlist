@@ -206,21 +206,29 @@ export default function PublicWishlist({ slug, showBackLink = true }: PublicWish
                             </div>
                         )}
 
-                        {/* Controls */}
-                        <div className="mb-6 flex items-center justify-between">
-                            <div className="flex items-center space-x-4">
-                                <label className="flex items-center">
+                        {/* Controls Toolbar */}
+                        <div className="mb-8 grid grid-cols-1 sm:grid-cols-3 items-center gap-4">
+                            {/* Left Spacer (for centering the middle element) */}
+                            <div className="hidden sm:block"></div>
+
+                            {/* Center: Items Count */}
+                            <div className="text-center order-1 sm:order-2">
+                                <span className="inline-block px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 text-sm font-medium rounded-full">
+                                    {filteredItems.length} of {items.length} items
+                                </span>
+                            </div>
+
+                            {/* Right: Show Claimed Toggle */}
+                            <div className="flex justify-center sm:justify-end order-2 sm:order-3">
+                                <label className="flex items-center cursor-pointer bg-white dark:bg-gray-800 px-4 py-2 rounded-full shadow-sm border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
                                     <input
                                         type="checkbox"
                                         checked={showClaimed}
                                         onChange={(e) => setShowClaimed(e.target.checked)}
-                                        className="h-4 w-4 text-blue-600 border-gray-300 rounded"
+                                        className="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
                                     />
-                                    <span className="ml-2 text-sm text-gray-700 dark:text-gray-300">Show claimed items</span>
+                                    <span className="ml-2 text-sm font-medium text-gray-700 dark:text-gray-200">Show claimed items</span>
                                 </label>
-                            </div>
-                            <div className="text-sm text-gray-600 dark:text-gray-400">
-                                {filteredItems.length} of {items.length} items
                             </div>
                         </div>
 
@@ -241,30 +249,30 @@ export default function PublicWishlist({ slug, showBackLink = true }: PublicWish
                                         <div className="flex flex-col md:flex-row">
                                             {/* Left: Image */}
                                             {item.imageUrl && (
-                                                <div className={`md:w-48 md:flex-shrink-0 ${item.claimedDate ? 'opacity-60' : ''}`}>
+                                                <div className={`md:w-40 md:flex-shrink-0 ${item.claimedDate ? 'opacity-40' : ''}`}>
                                                     <img
                                                         src={item.imageUrl}
                                                         alt={item.name}
-                                                        className="w-full h-48 md:h-full object-cover"
+                                                        className="w-full h-40 md:h-full object-cover"
                                                     />
                                                 </div>
                                             )}
 
                                             {/* Middle: Item Details */}
-                                            <div className={`flex-1 p-6 ${item.claimedDate ? 'opacity-60' : ''}`}>
-                                                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">
+                                            <div className={`flex-1 p-4 ${item.claimedDate ? 'opacity-40' : ''}`}>
+                                                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
                                                     {item.name}
                                                 </h3>
                                                 {item.description && (
-                                                    <p className="text-base text-gray-600 dark:text-gray-300 mb-4">
+                                                    <p className="text-sm text-gray-600 dark:text-gray-300 mb-2">
                                                         {item.description}
                                                     </p>
                                                 )}
                                             </div>
 
                                             {/* Right: Action Area */}
-                                            <div className="md:w-80 md:flex-shrink-0 p-6 bg-gray-50 dark:bg-gray-900/50 border-t md:border-t-0 md:border-l border-gray-200 dark:border-gray-700 flex flex-col">
-                                                <div className={`mb-4 ${item.claimedDate ? 'opacity-60' : ''}`}>
+                                            <div className="md:w-72 md:flex-shrink-0 p-4 bg-gray-50 dark:bg-gray-900/50 border-t md:border-t-0 md:border-l border-gray-200 dark:border-gray-700 flex flex-col">
+                                                <div className={`mb-3 ${item.claimedDate ? 'opacity-40' : ''}`}>
                                                     {item.purchaseUrls && item.purchaseUrls.length > 0 && (
                                                         <div className="space-y-2">
                                                             {item.purchaseUrls.map((url, idx) => (
@@ -273,12 +281,12 @@ export default function PublicWishlist({ slug, showBackLink = true }: PublicWish
                                                                     href={url.url}
                                                                     target="_blank"
                                                                     rel="noopener noreferrer"
-                                                                    className="flex items-center justify-between text-base px-4 py-3 rounded-lg hover:bg-indigo-50 dark:hover:bg-indigo-900/20 transition-colors cursor-pointer border border-gray-200 dark:border-gray-700"
+                                                                    className="flex items-center justify-between text-sm px-3 py-2 rounded-lg hover:bg-indigo-50 dark:hover:bg-indigo-900/20 transition-colors cursor-pointer border border-gray-200 dark:border-gray-700"
                                                                 >
-                                                                    <span className="text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 font-medium">
+                                                                    <span className="text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 font-medium truncate mr-2">
                                                                         {url.label}
                                                                     </span>
-                                                                    <span className="text-gray-900 dark:text-white font-bold text-lg">
+                                                                    <span className="text-gray-900 dark:text-white font-bold">
                                                                         {item.price && formatPrice(item.price, item.currency)}
                                                                     </span>
                                                                 </a>
@@ -406,6 +414,6 @@ export default function PublicWishlist({ slug, showBackLink = true }: PublicWish
 
                 <Footer />
             </div>
-        </PasswordLockGuard>
+        </PasswordLockGuard >
     );
 }
