@@ -98,11 +98,25 @@ export default function AdminPage() {
     const currentIndex = wishlists.findIndex((w) => w.id === wishlistId);
     if (currentIndex <= 0) return;
 
+    // Optimistic update
+    const previousWishlists = [...wishlists];
+    const newWishlists = [...wishlists];
+    const item = newWishlists[currentIndex];
+    newWishlists[currentIndex] = newWishlists[currentIndex - 1];
+    newWishlists[currentIndex - 1] = item;
+    setWishlists(newWishlists);
+
     try {
       await wishlistsApi.reorder(wishlistId, currentIndex - 1);
-      await fetchWishlists();
-    } catch (error: any) {
-      alert(`Error: ${error?.message || 'Failed to reorder wishlist'}`);
+    } catch (error) {
+      console.error('Reorder failed silently, will revalidate', error);
+    } finally {
+      try {
+        await fetchWishlists();
+      } catch (error) {
+        setWishlists(previousWishlists);
+        alert('Failed to sync changes. Please check your connection.');
+      }
     }
   };
 
@@ -110,11 +124,25 @@ export default function AdminPage() {
     const currentIndex = wishlists.findIndex((w) => w.id === wishlistId);
     if (currentIndex === -1 || currentIndex === wishlists.length - 1) return;
 
+    // Optimistic update
+    const previousWishlists = [...wishlists];
+    const newWishlists = [...wishlists];
+    const item = newWishlists[currentIndex];
+    newWishlists[currentIndex] = newWishlists[currentIndex + 1];
+    newWishlists[currentIndex + 1] = item;
+    setWishlists(newWishlists);
+
     try {
       await wishlistsApi.reorder(wishlistId, currentIndex + 1);
-      await fetchWishlists();
-    } catch (error: any) {
-      alert(`Error: ${error?.message || 'Failed to reorder wishlist'}`);
+    } catch (error) {
+      console.error('Reorder failed silently, will revalidate', error);
+    } finally {
+      try {
+        await fetchWishlists();
+      } catch (error) {
+        setWishlists(previousWishlists);
+        alert('Failed to sync changes. Please check your connection.');
+      }
     }
   };
 

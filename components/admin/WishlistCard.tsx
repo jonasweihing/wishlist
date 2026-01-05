@@ -143,12 +143,28 @@ export default function WishlistCard({
     const currentIndex = wishlistItems.findIndex((item) => item.id === itemId);
     if (currentIndex <= 0) return;
 
+    // Optimistic update
+    const previousItems = [...wishlistItems];
+    const newItems = [...wishlistItems];
+    const item = newItems[currentIndex];
+    newItems[currentIndex] = newItems[currentIndex - 1];
+    newItems[currentIndex - 1] = item;
+    setWishlistItems(newItems);
+
     try {
       await itemsApi.reorder(itemId, currentIndex - 1);
-      const updatedItems = await itemsApi.getAll(wishlist.id);
-      setWishlistItems(updatedItems);
-    } catch (error: any) {
-      alert(error?.message || 'Failed to reorder item');
+    } catch (error) {
+      console.error('Reorder failed silently, will revalidate', error);
+    } finally {
+      // Always revalidate to ensure consistency
+      try {
+        const items = await itemsApi.getAll(wishlist.id);
+        setWishlistItems(items);
+      } catch (error) {
+        // Only revert and alert if we can't even get the latest state
+        setWishlistItems(previousItems);
+        alert('Failed to sync changes. Please check your connection.');
+      }
     }
   };
 
@@ -156,12 +172,28 @@ export default function WishlistCard({
     const currentIndex = wishlistItems.findIndex((item) => item.id === itemId);
     if (currentIndex === -1 || currentIndex === wishlistItems.length - 1) return;
 
+    // Optimistic update
+    const previousItems = [...wishlistItems];
+    const newItems = [...wishlistItems];
+    const item = newItems[currentIndex];
+    newItems[currentIndex] = newItems[currentIndex + 1];
+    newItems[currentIndex + 1] = item;
+    setWishlistItems(newItems);
+
     try {
       await itemsApi.reorder(itemId, currentIndex + 1);
-      const updatedItems = await itemsApi.getAll(wishlist.id);
-      setWishlistItems(updatedItems);
-    } catch (error: any) {
-      alert(error?.message || 'Failed to reorder item');
+    } catch (error) {
+      console.error('Reorder failed silently, will revalidate', error);
+    } finally {
+      // Always revalidate to ensure consistency
+      try {
+        const items = await itemsApi.getAll(wishlist.id);
+        setWishlistItems(items);
+      } catch (error) {
+        // Only revert and alert if we can't even get the latest state
+        setWishlistItems(previousItems);
+        alert('Failed to sync changes. Please check your connection.');
+      }
     }
   };
 
