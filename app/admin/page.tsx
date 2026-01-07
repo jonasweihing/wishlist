@@ -7,7 +7,7 @@ import { wishlistsApi, itemsApi, settingsApi, type Wishlist, type Settings } fro
 import Header from '@/components/header';
 import Footer from '@/components/footer';
 import Link from 'next/link';
-import StatsGrid from '@/components/admin/StatsGrid';
+
 import SettingsSection from '@/components/admin/SettingsSection';
 import WishlistCard from '@/components/admin/WishlistCard';
 import CreateWishlistModal from '@/components/admin/CreateWishlistModal';
@@ -146,11 +146,7 @@ export default function AdminPage() {
     }
   };
 
-  const stats = {
-    totalWishlists: wishlists.length,
-    publicWishlists: wishlists.filter((w) => w.isPublic).length,
-    totalItems: Object.values(itemCounts).reduce((sum, count) => sum + count, 0),
-  };
+
 
   return (
     <ProtectedRoute>
@@ -193,8 +189,7 @@ export default function AdminPage() {
               </div>
             ) : (
               <>
-                {/* Stats Grid */}
-                <StatsGrid stats={stats} />
+
 
                 {/* Settings Section */}
                 <SettingsSection settings={settings} wishlists={wishlists} onUpdate={handleUpdateSettings} />
