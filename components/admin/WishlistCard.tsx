@@ -81,7 +81,7 @@ export default function WishlistCard({
       await onUpdate(wishlist.id, editForm);
       setEditingId(null);
     } catch (error: any) {
-      setEditError(error.message || 'Failed to update wishlist');
+      setEditError(error.message || 'Fehler beim Aktualisieren der Wunschliste');
     }
   };
 
@@ -104,7 +104,7 @@ export default function WishlistCard({
       setWishlistItems(items);
       onItemsChange();
     } catch (error: any) {
-      setNewItemError(error.message || 'Failed to create item');
+      setNewItemError(error.message || 'Fehler beim Erstellen des Wunsches');
       throw error;
     }
   };
@@ -118,13 +118,13 @@ export default function WishlistCard({
       setWishlistItems(items);
       onItemsChange();
     } catch (error: any) {
-      alert(error.message || 'Failed to update item');
+      alert(error.message || 'Fehler beim Aktualisieren des Wunsches');
       throw error;
     }
   };
 
   const handleDeleteItem = async (itemId: string) => {
-    if (!confirm('Are you sure you want to delete this item?')) return;
+    if (!confirm('Bist du sicher, dass du diesen Wunsch löschen möchtest?')) return;
 
     try {
       await itemsApi.delete(itemId);
@@ -132,7 +132,7 @@ export default function WishlistCard({
       setWishlistItems(items);
       onItemsChange();
     } catch (error) {
-      alert('Failed to delete item');
+      alert('Fehler beim Löschen des Wunsches');
     }
   };
 
@@ -160,7 +160,7 @@ export default function WishlistCard({
       } catch (error) {
         // Only revert and alert if we can't even get the latest state
         setWishlistItems(previousItems);
-        alert('Failed to sync changes. Please check your connection.');
+        alert('Fehler beim Synchronisieren. Bitte überprüfe deine Verbindung.');
       }
     }
   };
@@ -189,13 +189,13 @@ export default function WishlistCard({
       } catch (error) {
         // Only revert and alert if we can't even get the latest state
         setWishlistItems(previousItems);
-        alert('Failed to sync changes. Please check your connection.');
+        alert('Fehler beim Synchronisieren. Bitte überprüfe deine Verbindung.');
       }
     }
   };
 
   const handleUnclaimItem = async (itemId: string) => {
-    if (!confirm('Are you sure you want to unclaim this item? This action cannot be undone.')) return;
+    if (!confirm('Bist du sicher, dass du die Reservierung für diesen Wunsch aufheben möchtest? Dies kann nicht rückgängig gemacht werden.')) return;
 
     try {
       await itemsApi.update(itemId, {
@@ -207,7 +207,7 @@ export default function WishlistCard({
       setWishlistItems(items);
       onItemsChange();
     } catch (error: any) {
-      alert(error.message || 'Failed to unclaim item');
+      alert(error.message || 'Fehler beim Aufheben der Reservierung');
     }
   };
 
@@ -231,7 +231,7 @@ export default function WishlistCard({
               }}
               disabled={isFirst}
               className="flex-1 flex items-center justify-center text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors border-b border-gray-200 dark:border-gray-700 cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed"
-              title="Move up"
+              title="Nach oben verschieben"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
@@ -244,7 +244,7 @@ export default function WishlistCard({
               }}
               disabled={isLast}
               className="flex-1 flex items-center justify-center text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed"
-              title="Move down"
+              title="Nach unten verschieben"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
@@ -262,12 +262,12 @@ export default function WishlistCard({
                   }
                   onUploadStateChange={setIsWishlistImageUploading}
                   type="wishlist"
-                  label="Wishlist Image"
+                  label="Wunschlisten-Bild"
                 />
                 <div className="space-y-3">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                      Wishlist Name *
+                      Name der Wunschliste *
                     </label>
                     <div className="flex items-center gap-2">
                       <input
@@ -275,7 +275,7 @@ export default function WishlistCard({
                         value={editForm.name}
                         onChange={(e) => handleEditNameChange(e.target.value)}
                         className="text-lg font-bold px-2 py-1 border-2 border-indigo-500 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:text-white flex-1"
-                        placeholder="Wishlist name"
+                        placeholder="Name der Wunschliste"
                       />
                       <label className="flex items-center gap-2 text-base">
                         <input
@@ -289,7 +289,7 @@ export default function WishlistCard({
                           }
                           className="h-4 w-4 text-indigo-600 border-gray-300 rounded"
                         />
-                        <span className="text-gray-700 dark:text-gray-300">Public</span>
+                        <span className="text-gray-700 dark:text-gray-300">Öffentlich</span>
                       </label>
                     </div>
                   </div>
@@ -309,7 +309,7 @@ export default function WishlistCard({
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                      Description
+                      Beschreibung
                     </label>
                     <textarea
                       value={editForm.description}
@@ -320,13 +320,13 @@ export default function WishlistCard({
                         }))
                       }
                       className="text-base px-2 py-1 border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:text-white w-full"
-                      placeholder="Description"
+                      placeholder="Beschreibung"
                       rows={2}
                     />
                   </div>
 
                   <p className="text-base text-gray-500 dark:text-gray-500">
-                    {itemCount} items
+                    {itemCount} Wünsche
                   </p>
                 </div>
               </div>
@@ -351,7 +351,7 @@ export default function WishlistCard({
                         : 'bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-300'
                         }`}
                     >
-                      {wishlist.isPublic ? 'Public' : 'Private'}
+                      {wishlist.isPublic ? 'Öffentlich' : 'Privat'}
                     </span>
                   </div>
                   <p className="text-base text-gray-600 dark:text-gray-400 mb-1">
@@ -364,14 +364,14 @@ export default function WishlistCard({
                   )}
                   <div className="flex flex-col gap-1 mt-2">
                     <p className="text-base text-gray-500 dark:text-gray-500">
-                      {itemCount} items
+                      {itemCount} Wünsche
                     </p>
                     <div className="flex gap-4 text-xs text-gray-400 dark:text-gray-500">
                       <span title={new Date(wishlist.createdDate).toLocaleString()}>
-                        Created: {new Date(wishlist.createdDate).toLocaleDateString()}
+                        Erstellt: {new Date(wishlist.createdDate).toLocaleDateString()}
                       </span>
                       <span title={new Date(wishlist.updatedDate).toLocaleString()}>
-                        Updated: {new Date(wishlist.updatedDate).toLocaleDateString()}
+                        Aktualisiert: {new Date(wishlist.updatedDate).toLocaleDateString()}
                       </span>
                     </div>
                   </div>
@@ -385,7 +385,7 @@ export default function WishlistCard({
                 <button
                   onClick={cancelEditing}
                   className="flex-1 flex items-center justify-center text-base font-semibold text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors border-b border-gray-200 dark:border-gray-700"
-                  title="Cancel"
+                  title="Abbrechen"
                 >
                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -398,7 +398,7 @@ export default function WishlistCard({
                   }}
                   disabled={isWishlistImageUploading}
                   className="flex-1 flex items-center justify-center text-base font-semibold text-white bg-indigo-600 hover:bg-indigo-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                  title={isWishlistImageUploading ? "Uploading..." : "Save"}
+                  title={isWishlistImageUploading ? "Lade hoch..." : "Speichern"}
                 >
                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
@@ -413,7 +413,7 @@ export default function WishlistCard({
                     startEditing();
                   }}
                   className="flex-1 flex items-center justify-center text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors border-b border-gray-200 dark:border-gray-700 cursor-pointer"
-                  title="Edit wishlist"
+                  title="Wunschliste bearbeiten"
                 >
                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
@@ -425,7 +425,7 @@ export default function WishlistCard({
                     onDelete(wishlist.id);
                   }}
                   className="flex-1 flex items-center justify-center text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/20 hover:bg-red-100 dark:hover:bg-red-900/30 transition-colors cursor-pointer"
-                  title="Delete wishlist"
+                  title="Wunschliste löschen"
                 >
                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
@@ -447,14 +447,14 @@ export default function WishlistCard({
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
             </svg>
-            <span>Hide Items</span>
+            <span>Wünsche verbergen</span>
           </>
         ) : (
           <>
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
             </svg>
-            <span>Show Items ({itemCount})</span>
+            <span>Wünsche anzeigen ({itemCount})</span>
           </>
         )}
       </button>
@@ -464,7 +464,7 @@ export default function WishlistCard({
         <div className="p-5 bg-gray-50 dark:bg-gray-900/50">
           <div className="flex justify-between items-center mb-4">
             <h4 className="text-lg font-semibold text-gray-900 dark:text-white">
-              Items ({wishlistItems.length})
+              Wünsche ({wishlistItems.length})
             </h4>
             <button
               onClick={() => {
@@ -473,7 +473,7 @@ export default function WishlistCard({
               }}
               className="px-4 py-2 text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700 rounded-lg transition-colors cursor-pointer"
             >
-              + Add Item
+              + Wunsch hinzufügen
             </button>
           </div>
 
@@ -493,7 +493,7 @@ export default function WishlistCard({
           {/* Items List */}
           {wishlistItems.length === 0 ? (
             <p className="text-base text-gray-500 dark:text-gray-400 text-center py-4">
-              No items yet
+              Noch keine Wünsche
             </p>
           ) : (
             <div className="space-y-3">

@@ -288,13 +288,13 @@ export default function PublicWishlist({ slug, showBackLink = true }: PublicWish
                                                                 </div>
                                                             </div>
                                                             <p className="text-center text-lg font-semibold text-gray-900 dark:text-white mb-1">
-                                                                Wunsch erfüllt!
+                                                                Wunsch reserviert!
                                                             </p>
                                                         </div>
                                                     ) : item.claimedDate ? (
                                                         <div className="bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800 rounded p-3">
                                                             <p className="text-sm font-medium text-emerald-800 dark:text-emerald-200">
-                                                                Bereits vergeben!
+                                                                Bereits reserviert!
                                                             </p>
                                                             {showClaimed && (
                                                                 unclaimingItemId === item.id ? (
@@ -327,7 +327,7 @@ export default function PublicWishlist({ slug, showBackLink = true }: PublicWish
                                                                                     disabled={isUnclaiming}
                                                                                     className="flex-1 px-3 py-2 bg-rose-100 dark:bg-rose-900/30 text-rose-800 dark:text-rose-300 rounded-md text-sm hover:bg-rose-200 dark:hover:bg-rose-900/50 font-medium disabled:opacity-50 transition-colors cursor-pointer"
                                                                                 >
-                                                                                    {isUnclaiming ? '...' : 'Doch nicht schenken'}
+                                                                                    {isUnclaiming ? '...' : 'Reservierung aufheben'}
                                                                                 </button>
                                                                             </div>
                                                                         </form>
@@ -337,7 +337,7 @@ export default function PublicWishlist({ slug, showBackLink = true }: PublicWish
                                                                         onClick={() => handleUnclaimClick(item.id)}
                                                                         className="mt-3 w-full px-4 py-2 bg-rose-100 dark:bg-rose-900/30 text-rose-800 dark:text-rose-300 rounded-md hover:bg-rose-200 dark:hover:bg-rose-900/50 font-medium disabled:opacity-50 transition-colors cursor-pointer text-sm"
                                                                     >
-                                                                        Wunsch freigeben
+                                                                        Reservierung aufheben
                                                                     </button>
                                                                 )
                                                             )}
@@ -380,7 +380,7 @@ export default function PublicWishlist({ slug, showBackLink = true }: PublicWish
                                                             onClick={() => handleClaimItem(item.id)}
                                                             className="w-full px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 font-medium transition-colors cursor-pointer"
                                                         >
-                                                            Ich schenke das!
+                                                            Wunsch reservieren
                                                         </button>
                                                     )}
                                                 </div>

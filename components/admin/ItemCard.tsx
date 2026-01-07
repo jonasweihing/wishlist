@@ -33,7 +33,7 @@ export default function ItemCard({
             }}
             disabled={isFirst}
             className="flex-1 flex items-center justify-center text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors border-b border-gray-200 dark:border-gray-700 cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed"
-            title="Move up"
+            title="Nach oben verschieben"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
@@ -46,7 +46,7 @@ export default function ItemCard({
             }}
             disabled={isLast}
             className="flex-1 flex items-center justify-center text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed"
-            title="Move down"
+            title="Nach unten verschieben"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
@@ -81,26 +81,26 @@ export default function ItemCard({
             {item.claimedDate && (
               <div className="mt-3 flex items-center justify-between p-2 bg-indigo-50 dark:bg-indigo-900/30 rounded border border-indigo-100 dark:border-indigo-800 text-sm">
                 <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 text-indigo-900 dark:text-indigo-200">
-                  <span className="font-semibold">Claimed by {item.claimedName || 'Unknown'}</span>
+                  <span className="font-semibold">Reserviert von {item.claimedName || 'Unbekannt'}</span>
                   <span className="text-indigo-700 dark:text-indigo-400 text-xs text-nowrap">
-                    on {new Date(item.claimedDate).toLocaleDateString()}
+                    am {new Date(item.claimedDate).toLocaleDateString()}
                   </span>
                 </div>
                 <button
                   onClick={onUnclaim}
                   className="ml-2 text-xs bg-white dark:bg-indigo-900 text-indigo-700 dark:text-indigo-200 border border-indigo-200 dark:border-indigo-700 px-2 py-1 rounded hover:bg-indigo-50 dark:hover:bg-indigo-800 transition-colors shrink-0"
                 >
-                  Unclaim
+                  Freigeben
                 </button>
               </div>
             )}
 
             <div className="mt-2 flex gap-3 text-xs text-gray-400 dark:text-gray-500">
               <span title={new Date(item.createdDate).toLocaleString()}>
-                Created: {new Date(item.createdDate).toLocaleDateString()}
+                Erstellt: {new Date(item.createdDate).toLocaleDateString()}
               </span>
               <span title={new Date(item.updatedDate).toLocaleString()}>
-                Updated: {new Date(item.updatedDate).toLocaleDateString()}
+                Aktualisiert: {new Date(item.updatedDate).toLocaleDateString()}
               </span>
             </div>
           </div>
@@ -109,7 +109,7 @@ export default function ItemCard({
           <button
             onClick={onEdit}
             className="flex-1 flex items-center justify-center text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors border-b border-gray-200 dark:border-gray-700 cursor-pointer"
-            title="Edit item"
+            title="Wunsch bearbeiten"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
@@ -118,7 +118,7 @@ export default function ItemCard({
           <button
             onClick={onDelete}
             className="flex-1 flex items-center justify-center text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/20 hover:bg-red-100 dark:hover:bg-red-900/30 transition-colors cursor-pointer"
-            title="Delete item"
+            title="Wunsch löschen"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />

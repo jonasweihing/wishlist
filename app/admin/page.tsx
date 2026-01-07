@@ -73,7 +73,7 @@ export default function AdminPage() {
       setShowCreateModal(false);
       fetchWishlists();
     } catch (error: any) {
-      setCreateError(error.message || 'Failed to create wishlist');
+      setCreateError(error.message || 'Fehler beim Erstellen der Wunschliste');
       throw error;
     }
   };
@@ -84,13 +84,13 @@ export default function AdminPage() {
   };
 
   const handleDeleteWishlist = async (id: string) => {
-    if (!confirm('Are you sure you want to delete this wishlist?')) return;
+    if (!confirm('Bist du sicher, dass du diese Wunschliste löschen möchtest?')) return;
 
     try {
       await wishlistsApi.delete(id);
       fetchWishlists();
     } catch (error) {
-      alert('Failed to delete wishlist');
+      alert('Fehler beim Löschen der Wunschliste');
     }
   };
 
@@ -115,7 +115,7 @@ export default function AdminPage() {
         await fetchWishlists();
       } catch (error) {
         setWishlists(previousWishlists);
-        alert('Failed to sync changes. Please check your connection.');
+        alert('Fehler beim Synchronisieren. Bitte überprüfe deine Verbindung.');
       }
     }
   };
@@ -141,7 +141,7 @@ export default function AdminPage() {
         await fetchWishlists();
       } catch (error) {
         setWishlists(previousWishlists);
-        alert('Failed to sync changes. Please check your connection.');
+        alert('Fehler beim Synchronisieren. Bitte überprüfe deine Verbindung.');
       }
     }
   };
@@ -153,29 +153,29 @@ export default function AdminPage() {
       <div className="min-h-screen">
         <Header
           title="Dashboard"
-          subtitle="Manage your wishlists and items"
+          subtitle="Verwalte deine Wunschlisten und Wünsche"
           actions={
             <>
               <ShareButton
-                title="Check out my wishlist site!"
-                text="I wanted to share my wishlist site with you."
+                title="Schau dir meine Wunschliste an!"
+                text="Ich wollte meine Wunschliste mit dir teilen."
                 url="https://wishlist.tieso.co/"
               />
               <Link
                 href="/"
                 className="inline-flex items-center px-6 py-3 border-2 border-indigo-600 dark:border-indigo-500 text-base font-semibold rounded-lg text-indigo-600 dark:text-indigo-400 bg-white dark:bg-gray-800 hover:bg-indigo-50 dark:hover:bg-gray-700 transition-all"
               >
-                View Public Site
+                Öffentliche Seite ansehen
               </Link>
               <button
                 onClick={logout}
                 className="inline-flex items-center px-6 py-3 border-2 border-red-600 dark:border-red-500 text-base font-semibold rounded-lg text-red-600 dark:text-red-400 bg-white dark:bg-gray-800 hover:bg-red-50 dark:hover:bg-red-900/20 transition-all cursor-pointer"
-                title="Logout"
+                title="Abmelden"
               >
                 <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
                 </svg>
-                Logout
+                Abmelden
               </button>
             </>
           }
@@ -185,7 +185,7 @@ export default function AdminPage() {
           <div className="px-4 sm:px-0">
             {isLoading ? (
               <div className="text-center py-12">
-                <p className="text-gray-600 dark:text-gray-400">Loading...</p>
+                <p className="text-gray-600 dark:text-gray-400">Laden...</p>
               </div>
             ) : (
               <>
@@ -198,25 +198,25 @@ export default function AdminPage() {
                 <div className="mb-6">
                   <div className="flex items-center justify-between mb-4">
                     <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-                      Your Wishlists
+                      Deine Wunschlisten
                     </h2>
                     <button
                       onClick={() => setShowCreateModal(true)}
                       className="inline-flex items-center px-6 py-3 border border-transparent text-base font-semibold rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 shadow-md hover:shadow-lg transition-all cursor-pointer"
                     >
-                      + Create Wishlist
+                      + Wunschliste erstellen
                     </button>
                   </div>
                   {wishlists.length === 0 ? (
                     <div className="text-center py-12 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
                       <p className="text-gray-500 dark:text-gray-400 mb-6 text-lg">
-                        No wishlists yet
+                        Noch keine Wunschlisten
                       </p>
                       <button
                         onClick={() => setShowCreateModal(true)}
                         className="inline-flex items-center px-6 py-3 border border-transparent text-base font-semibold rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 shadow-md hover:shadow-lg transition-all"
                       >
-                        Create Your First Wishlist
+                        Erstelle deine erste Wunschliste
                       </button>
                     </div>
                   ) : (

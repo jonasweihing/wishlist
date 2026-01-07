@@ -49,7 +49,7 @@ export default function ItemForm({ initialData, onSubmit, onCancel, isEditing = 
         purchaseLabel: new URL(scrapeUrl).hostname.replace('www.', ''),
       }));
     } catch (error: any) {
-      setScrapeError(error.message || 'Failed to scrape URL');
+      setScrapeError(error.message || 'Fehler beim Laden der URL');
     } finally {
       setIsScraping(false);
     }
@@ -64,11 +64,11 @@ export default function ItemForm({ initialData, onSubmit, onCancel, isEditing = 
     try {
       const purchaseUrls = formData.purchaseUrl
         ? [
-            {
-              url: formData.purchaseUrl,
-              label: formData.purchaseLabel || 'Link',
-            },
-          ]
+          {
+            url: formData.purchaseUrl,
+            label: formData.purchaseLabel || 'Link',
+          },
+        ]
         : null;
 
       await onSubmit({
@@ -81,7 +81,7 @@ export default function ItemForm({ initialData, onSubmit, onCancel, isEditing = 
         purchaseUrls,
       });
     } catch (error: any) {
-      setSubmitError(error.message || 'Failed to save item');
+      setSubmitError(error.message || 'Fehler beim Speichern des Wunsches');
     } finally {
       setIsSubmitting(false);
     }
@@ -99,7 +99,7 @@ export default function ItemForm({ initialData, onSubmit, onCancel, isEditing = 
       {!isEditing && (
         <div className="bg-blue-50 p-4 rounded-lg">
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            Auto-fill from URL (optional)
+            Automatisch ausfüllen (optional)
           </label>
           <div className="flex space-x-2">
             <input
@@ -115,14 +115,14 @@ export default function ItemForm({ initialData, onSubmit, onCancel, isEditing = 
               disabled={isScraping || !scrapeUrl}
               className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 disabled:opacity-50 font-semibold transition-colors"
             >
-              {isScraping ? 'Scraping...' : 'Scrape'}
+              {isScraping ? 'Lade...' : 'Laden'}
             </button>
           </div>
           {scrapeError && (
             <p className="mt-2 text-sm text-red-600">{scrapeError}</p>
           )}
           <p className="mt-2 text-xs text-gray-600">
-            Supports common retailers like Amazon, eBay, etc.
+            Unterstützt bekannte Händler wie Amazon, eBay, etc.
           </p>
         </div>
       )}
@@ -130,7 +130,7 @@ export default function ItemForm({ initialData, onSubmit, onCancel, isEditing = 
       {/* Basic Info */}
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-1">
-          Item Name *
+          Wunsch Name *
         </label>
         <input
           type="text"
@@ -143,7 +143,7 @@ export default function ItemForm({ initialData, onSubmit, onCancel, isEditing = 
 
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-1">
-          Description
+          Beschreibung
         </label>
         <textarea
           rows={4}
@@ -159,7 +159,7 @@ export default function ItemForm({ initialData, onSubmit, onCancel, isEditing = 
       <div className="grid grid-cols-3 gap-4">
         <div className="col-span-2">
           <label className="block text-sm font-medium text-gray-700 mb-1">
-            Price
+            Preis
           </label>
           <input
             type="number"
@@ -178,7 +178,7 @@ export default function ItemForm({ initialData, onSubmit, onCancel, isEditing = 
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">
-            Currency
+            Währung
           </label>
           <select
             className="w-full px-3 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-gray-900"
@@ -197,7 +197,7 @@ export default function ItemForm({ initialData, onSubmit, onCancel, isEditing = 
 
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-1">
-          Quantity
+          Anzahl
         </label>
         <input
           type="number"
@@ -215,13 +215,13 @@ export default function ItemForm({ initialData, onSubmit, onCancel, isEditing = 
         currentImageUrl={formData.imageUrl}
         onImageChange={(url) => setFormData((prev) => ({ ...prev, imageUrl: url }))}
         type="item"
-        label="Product Image"
+        label="Produktbild"
       />
 
       {/* Purchase Link */}
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-1">
-          Purchase Link
+          Link zum Kaufen
         </label>
         <input
           type="url"
@@ -234,7 +234,7 @@ export default function ItemForm({ initialData, onSubmit, onCancel, isEditing = 
         />
         <input
           type="text"
-          placeholder="Link Label"
+          placeholder="Link Bezeichnung"
           className="w-full px-3 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-gray-900"
           value={formData.purchaseLabel}
           onChange={(e) =>
@@ -250,14 +250,14 @@ export default function ItemForm({ initialData, onSubmit, onCancel, isEditing = 
           onClick={onCancel}
           className="px-6 py-3 border-2 border-gray-300 rounded-lg text-base font-semibold text-gray-700 hover:bg-gray-50 transition-colors"
         >
-          Cancel
+          Abbrechen
         </button>
         <button
           type="submit"
           disabled={isSubmitting}
           className="px-6 py-3 border border-transparent rounded-lg text-base font-semibold text-white bg-indigo-600 hover:bg-indigo-700 shadow-md hover:shadow-lg transition-all disabled:opacity-50"
         >
-          {isSubmitting ? 'Saving...' : isEditing ? 'Update Item' : 'Create Item'}
+          {isSubmitting ? 'Speichere...' : isEditing ? 'Wunsch aktualisieren' : 'Wunsch erstellen'}
         </button>
       </div>
     </form>

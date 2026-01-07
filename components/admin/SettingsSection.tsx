@@ -35,16 +35,16 @@ export default function SettingsSection({ settings, wishlists, onUpdate }: Setti
       await onUpdate(settingsForm);
       setEditingSettings(false);
     } catch (error: any) {
-      setSettingsError(error.message || 'Failed to update settings');
+      setSettingsError(error.message || 'Fehler beim Aktualisieren der Einstellungen');
     }
   };
 
   const getLandingPageLabel = () => {
     if (!settings.landingPageSlug) {
-      return 'Overview Page (Show all wishlists)';
+      return 'Übersichtsseite (Alle Wunschlisten anzeigen)';
     }
     const wishlist = wishlists.find((w) => w.slug === settings.landingPageSlug);
-    return wishlist ? `Wishlist: ${wishlist.name}` : `Wishlist (Slug: ${settings.landingPageSlug} - Not Found)`;
+    return wishlist ? `Wunschliste: ${wishlist.name}` : `Wunschliste (Slug: ${settings.landingPageSlug} - Nicht gefunden)`;
   };
 
   return (
@@ -53,14 +53,14 @@ export default function SettingsSection({ settings, wishlists, onUpdate }: Setti
         <div className="p-5 border-b border-gray-200 dark:border-gray-700">
           <div className="flex items-center justify-between">
             <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-              Site Settings
+              Seiteneinstellungen
             </h2>
             {!editingSettings && (
               <button
                 onClick={startEditingSettings}
                 className="px-4 py-2 text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700 rounded-lg transition-colors cursor-pointer"
               >
-                Edit Settings
+                Einstellungen bearbeiten
               </button>
             )}
           </div>
@@ -75,7 +75,7 @@ export default function SettingsSection({ settings, wishlists, onUpdate }: Setti
             <form onSubmit={handleUpdateSettings} className="space-y-4">
               <div>
                 <label className="block text-base font-medium text-gray-700 dark:text-gray-300 mb-2">
-                  Site Title
+                  Seitentitel
                 </label>
                 <input
                   type="text"
@@ -88,12 +88,12 @@ export default function SettingsSection({ settings, wishlists, onUpdate }: Setti
                   placeholder="Wishlist"
                 />
                 <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
-                  This is used for the page title and homepage header
+                  Wird für den Seitentitel und die Kopfzeile verwendet
                 </p>
               </div>
               <div>
                 <label className="block text-base font-medium text-gray-700 dark:text-gray-300 mb-2">
-                  Homepage Subtext
+                  Untertitel der Startseite
                 </label>
                 <textarea
                   rows={2}
@@ -102,16 +102,16 @@ export default function SettingsSection({ settings, wishlists, onUpdate }: Setti
                   onChange={(e) =>
                     setSettingsForm((prev) => ({ ...prev, homepageSubtext: e.target.value }))
                   }
-                  placeholder="Browse and explore available wishlists"
+                  placeholder="Durchstöbere verfügbare Wunschlisten"
                 />
                 <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
-                  This appears below the title on the homepage
+                  Erscheint unter dem Titel auf der Startseite
                 </p>
               </div>
 
               <div className="pt-4 border-t border-gray-200 dark:border-gray-700">
                 <label className="block text-base font-medium text-gray-700 dark:text-gray-300 mb-2">
-                  Landing Page
+                  Startseite
                 </label>
                 <select
                   className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:text-white"
@@ -120,8 +120,8 @@ export default function SettingsSection({ settings, wishlists, onUpdate }: Setti
                     setSettingsForm((prev) => ({ ...prev, landingPageSlug: e.target.value || undefined }))
                   }
                 >
-                  <option value="">Overview Page (Show all wishlists)</option>
-                  <optgroup label="Public Wishlists">
+                  <option value="">Übersichtsseite (Alle Wunschlisten anzeigen)</option>
+                  <optgroup label="Öffentliche Wunschlisten">
                     {publicWishlists.map((wishlist) => (
                       <option key={wishlist.id} value={wishlist.slug}>
                         {wishlist.name}
@@ -130,7 +130,7 @@ export default function SettingsSection({ settings, wishlists, onUpdate }: Setti
                   </optgroup>
                 </select>
                 <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
-                  Choose what visitors see when they visit the main page
+                  Wähle, was Besucher auf der Hauptseite sehen
                 </p>
               </div>
 
@@ -146,16 +146,16 @@ export default function SettingsSection({ settings, wishlists, onUpdate }: Setti
                     }
                   />
                   <label htmlFor="passwordLockEnabled" className="ml-2 block text-base font-medium text-gray-700 dark:text-gray-300">
-                    Enable Password Lock
+                    Passwortschutz aktivieren
                   </label>
                 </div>
                 <p className="text-sm text-gray-500 dark:text-gray-400 mb-3">
-                  When enabled, visitors must enter a password to access the website
+                  Wenn aktiviert, müssen Besucher ein Passwort eingeben, um die Seite zu sehen
                 </p>
                 {settingsForm.passwordLockEnabled && (
                   <div>
                     <label className="block text-base font-medium text-gray-700 dark:text-gray-300 mb-2">
-                      Site Password
+                      Seitenpasswort
                     </label>
                     <input
                       type="password"
@@ -164,10 +164,10 @@ export default function SettingsSection({ settings, wishlists, onUpdate }: Setti
                       onChange={(e) =>
                         setSettingsForm((prev) => ({ ...prev, passwordLock: e.target.value }))
                       }
-                      placeholder="Enter password (leave blank to keep current)"
+                      placeholder="Passwort eingeben (leer lassen, um aktuelles zu behalten)"
                     />
                     <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
-                      Leave blank to keep the current password unchanged
+                      Leer lassen, um das aktuelle Passwort beizubehalten
                     </p>
                   </div>
                 )}
@@ -175,12 +175,12 @@ export default function SettingsSection({ settings, wishlists, onUpdate }: Setti
 
               <div className="pt-4 border-t border-gray-200 dark:border-gray-700">
                 <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
-                  Theme Customization
+                  Design anpassen
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div>
                     <label className="block text-base font-medium text-gray-700 dark:text-gray-300 mb-2">
-                      Header Background
+                      Hintergrundfarbe Kopfzeile
                     </label>
                     <div className="flex items-center gap-3">
                       <input
@@ -204,7 +204,7 @@ export default function SettingsSection({ settings, wishlists, onUpdate }: Setti
                   </div>
                   <div>
                     <label className="block text-base font-medium text-gray-700 dark:text-gray-300 mb-2">
-                      Primary Color
+                      Primärfarbe
                     </label>
                     <div className="flex items-center gap-3">
                       <input
@@ -228,7 +228,7 @@ export default function SettingsSection({ settings, wishlists, onUpdate }: Setti
                   </div>
                   <div>
                     <label className="block text-base font-medium text-gray-700 dark:text-gray-300 mb-2">
-                      Main Background Color
+                      Haupt-Hintergrundfarbe
                     </label>
                     <div className="flex items-center gap-3">
                       <input
@@ -259,81 +259,81 @@ export default function SettingsSection({ settings, wishlists, onUpdate }: Setti
                   onClick={cancelEditingSettings}
                   className="px-4 py-2 text-base border border-gray-300 dark:border-gray-600 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer"
                 >
-                  Cancel
+                  Abbrechen
                 </button>
                 <button
                   type="submit"
                   className="px-4 py-2 text-base bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 cursor-pointer"
                 >
-                  Save Settings
+                  Einstellungen speichern
                 </button>
               </div>
             </form>
           ) : (
             <div className="space-y-3">
               <div>
-                <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Site Title</p>
+                <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Seitentitel</p>
                 <p className="text-base text-gray-900 dark:text-white">{settings.siteTitle}</p>
               </div>
               <div>
-                <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Homepage Subtext</p>
+                <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Untertitel der Startseite</p>
                 <p className="text-base text-gray-900 dark:text-white">{settings.homepageSubtext}</p>
               </div>
               <div>
-                <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Landing Page</p>
+                <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Startseite</p>
                 <p className="text-base text-gray-900 dark:text-white">{getLandingPageLabel()}</p>
               </div>
               <div className="pt-3 border-t border-gray-200 dark:border-gray-700">
-                <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Password Lock</p>
+                <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Passwortschutz</p>
                 <p className="text-base text-gray-900 dark:text-white">
                   {settings.passwordLockEnabled ? (
                     <span className="inline-flex items-center px-2.5 py-1 rounded-full text-base font-medium bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200">
-                      Enabled
+                      Aktiviert
                     </span>
                   ) : (
                     <span className="inline-flex items-center px-2.5 py-1 rounded-full text-base font-medium bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-300">
-                      Disabled
+                      Deaktiviert
                     </span>
                   )}
                 </p>
               </div>
               <div className="pt-3 border-t border-gray-200 dark:border-gray-700">
-                <p className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">Theme Colors</p>
+                <p className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">Design Farben</p>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div>
-                    <span className="text-xs text-gray-500 dark:text-gray-400 block mb-1">Header Background</span>
+                    <span className="text-xs text-gray-500 dark:text-gray-400 block mb-1">Hintergrundfarbe Kopfzeile</span>
                     <div className="flex items-center gap-2">
                       <div
                         className="w-6 h-6 rounded-full border border-gray-200"
                         style={{ backgroundColor: settings.headerColorLight || '#ffffff' }}
                       />
                       <span className="text-sm text-gray-900 dark:text-white">
-                        {settings.headerColorLight || 'Default'}
+                        {settings.headerColorLight || 'Standard'}
                       </span>
                     </div>
                   </div>
 
                   <div>
-                    <span className="text-xs text-gray-500 dark:text-gray-400 block mb-1">Primary Color</span>
+                    <span className="text-xs text-gray-500 dark:text-gray-400 block mb-1">Primärfarbe</span>
                     <div className="flex items-center gap-2">
                       <div
                         className="w-6 h-6 rounded-full border border-gray-200"
                         style={{ backgroundColor: settings.primaryColor || '#4f46e5' }}
                       />
                       <span className="text-sm text-gray-900 dark:text-white">
-                        {settings.primaryColor || 'Default'}
+                        {settings.primaryColor || 'Standard'}
                       </span>
                     </div>
                   </div>
                   <div>
-                    <span className="text-xs text-gray-500 dark:text-gray-400 block mb-1">Background Color</span>
+                    <span className="text-xs text-gray-500 dark:text-gray-400 block mb-1">Haupt-Hintergrundfarbe</span>
                     <div className="flex items-center gap-2">
                       <div
                         className="w-6 h-6 rounded-full border border-gray-200"
                         style={{ backgroundColor: settings.backgroundColor || '#f9fafb' }}
                       />
                       <span className="text-sm text-gray-900 dark:text-white">
-                        {settings.backgroundColor || 'Default (Gray-50)'}
+                        {settings.backgroundColor || 'Standard (Gray-50)'}
                       </span>
                     </div>
                   </div>

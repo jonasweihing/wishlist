@@ -68,7 +68,7 @@ export default function CreateWishlistModal({
     <div className="fixed inset-0 bg-gray-500 bg-opacity-75 dark:bg-gray-900 dark:bg-opacity-80 flex items-center justify-center p-4 z-50">
       <div className="bg-white dark:bg-gray-800 rounded-xl max-w-md w-full p-6 shadow-2xl">
         <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">
-          Create New Wishlist
+          Neue Wunschliste erstellen
         </h2>
         <form onSubmit={handleSubmit}>
           {error && (
@@ -91,7 +91,7 @@ export default function CreateWishlistModal({
             </div>
             <div>
               <label className="block text-base font-medium text-gray-900 dark:text-gray-200 mb-1">
-                Slug (URL-friendly)
+                Slug (URL-freundlich)
               </label>
               <input
                 type="text"
@@ -105,7 +105,7 @@ export default function CreateWishlistModal({
             </div>
             <div>
               <label className="block text-base font-medium text-gray-900 dark:text-gray-200 mb-1">
-                Description
+                Beschreibung
               </label>
               <textarea
                 rows={3}
@@ -125,7 +125,7 @@ export default function CreateWishlistModal({
               onImageChange={(url) => setFormData((prev) => ({ ...prev, imageUrl: url }))}
               onUploadStateChange={setIsImageUploading}
               type="wishlist"
-              label="Wishlist Image"
+              label="Wunschlisten-Bild"
             />
             <div className="flex items-center">
               <input
@@ -144,7 +144,7 @@ export default function CreateWishlistModal({
                 htmlFor="isPublic"
                 className="ml-2 block text-base font-medium text-gray-900 dark:text-gray-200"
               >
-                Make Public
+                Öffentlich machen
               </label>
             </div>
           </div>
@@ -154,14 +154,14 @@ export default function CreateWishlistModal({
               onClick={handleClose}
               className="px-6 py-3 border-2 border-gray-300 dark:border-gray-600 rounded-lg text-base font-semibold text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
             >
-              Cancel
+              Abbrechen
             </button>
             <button
               type="submit"
               disabled={isCreating || isImageUploading}
               className="px-6 py-3 border border-transparent rounded-lg text-base font-semibold text-white bg-indigo-600 hover:bg-indigo-700 shadow-md hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {isImageUploading ? 'Uploading...' : isCreating ? 'Creating...' : 'Create'}
+              {isImageUploading ? 'Lade hoch...' : isCreating ? 'Erstelle...' : 'Erstellen'}
             </button>
           </div>
         </form>

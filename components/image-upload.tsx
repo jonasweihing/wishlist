@@ -14,7 +14,7 @@ export default function ImageUpload({
   currentImageUrl,
   onImageChange,
   type,
-  label = 'Image',
+  label = 'Bild',
   onUploadStateChange,
 }: ImageUploadProps) {
   const [isUploading, setIsUploading] = useState(false);
@@ -31,12 +31,12 @@ export default function ImageUpload({
     const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp', 'image/gif'];
 
     if (!allowedTypes.includes(file.type)) {
-      setUploadError('Invalid file type. Please upload a JPEG, PNG, WebP, or GIF image.');
+      setUploadError('Ungültiger Dateityp. Bitte lade ein JPEG, PNG, WebP oder GIF Bild hoch.');
       return;
     }
 
     if (file.size > maxSize) {
-      setUploadError('File is too large. Maximum size is 5MB.');
+      setUploadError('Die Datei ist zu groß. Maximale Größe ist 5MB.');
       return;
     }
 
@@ -69,14 +69,14 @@ export default function ImageUpload({
           setUploadProgress(100);
         } catch (error) {
           console.error('Failed to parse response:', error);
-          setUploadError('Failed to parse server response');
+          setUploadError('Fehler beim Verarbeiten der Serverantwort');
         }
       } else {
         try {
           const data = JSON.parse(xhr.responseText);
-          setUploadError(data.error || 'Upload failed');
+          setUploadError(data.error || 'Upload fehlgeschlagen');
         } catch {
-          setUploadError(`Upload failed with status ${xhr.status}`);
+          setUploadError(`Upload fehlgeschlagen mit Status ${xhr.status}`);
         }
       }
       setIsUploading(false);
@@ -86,14 +86,14 @@ export default function ImageUpload({
     // Handle errors
     xhr.addEventListener('error', () => {
       console.error('Upload error');
-      setUploadError('Network error occurred during upload');
+      setUploadError('Netzwerkfehler beim Upload');
       setIsUploading(false);
       onUploadStateChange?.(false);
     });
 
     // Handle abort
     xhr.addEventListener('abort', () => {
-      setUploadError('Upload was cancelled');
+      setUploadError('Upload wurde abgebrochen');
       setIsUploading(false);
       onUploadStateChange?.(false);
     });
@@ -188,7 +188,7 @@ export default function ImageUpload({
               />
             </svg>
             <div className="invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-opacity absolute left-1/2 -translate-x-1/2 bottom-full mb-2 px-3 py-2 bg-gray-900 dark:bg-gray-700 text-white text-xs rounded-lg shadow-lg whitespace-nowrap z-10 pointer-events-none">
-              Max 5MB. Allowed: JPEG, PNG, WebP, GIF. Images will be resized to max 800x800px and optimized.
+              Max 5MB. Erlaubt: JPEG, PNG, WebP, GIF. Bilder werden auf max 800x800px verkleinert und optimiert.
               <div className="absolute top-full left-1/2 -translate-x-1/2 -mt-1 border-4 border-transparent border-t-gray-900 dark:border-t-gray-700"></div>
             </div>
           </div>
@@ -210,7 +210,7 @@ export default function ImageUpload({
             type="button"
             onClick={handleRemoveImage}
             className="absolute -top-2 -right-2 w-6 h-6 bg-red-500 hover:bg-red-600 text-white rounded-full flex items-center justify-center cursor-pointer shadow-lg transition-colors"
-            title="Remove image"
+            title="Bild entfernen"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -224,24 +224,22 @@ export default function ImageUpload({
             <button
               type="button"
               onClick={() => setUseUrl(true)}
-              className={`px-3 py-2 text-base rounded cursor-pointer transition-colors ${
-                useUrl
+              className={`px-3 py-2 text-base rounded cursor-pointer transition-colors ${useUrl
                   ? 'bg-indigo-600 text-white'
                   : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600'
-              }`}
+                }`}
             >
-              Use URL
+              URL verwenden
             </button>
             <button
               type="button"
               onClick={() => setUseUrl(false)}
-              className={`px-3 py-2 text-base rounded cursor-pointer transition-colors ${
-                !useUrl
+              className={`px-3 py-2 text-base rounded cursor-pointer transition-colors ${!useUrl
                   ? 'bg-indigo-600 text-white'
                   : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600'
-              }`}
+                }`}
             >
-              Upload File
+              Datei hochladen
             </button>
           </div>
 
@@ -268,7 +266,7 @@ export default function ImageUpload({
                 disabled={isUploading}
               />
               <p className="mt-1 text-sm text-indigo-600 dark:text-indigo-400 font-medium">
-                💡 Tip: You can also paste an image directly (Ctrl+V / Cmd+V)
+                💡 Tipp: Du kannst ein Bild direkt einfügen (Strg+V / Cmd+V)
               </p>
             </div>
           )}
@@ -284,7 +282,7 @@ export default function ImageUpload({
           {isUploading && (
             <div className="space-y-2">
               <div className="flex items-center justify-between text-sm text-gray-700 dark:text-gray-300">
-                <span>Uploading...</span>
+                <span>Wird hochgeladen...</span>
                 <span className="font-medium">{Math.round(uploadProgress)}%</span>
               </div>
               <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5 overflow-hidden">
