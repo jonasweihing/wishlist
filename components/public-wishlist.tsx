@@ -279,9 +279,9 @@ export default function PublicWishlist({ slug, showBackLink = true }: PublicWish
                                                 {/* Claimed Badge, Success Message, or Claim Button/Form */}
                                                 <div className="mt-auto">
                                                     {justClaimedItemId === item.id ? (
-                                                        <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg p-4">
+                                                        <div className="bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800 rounded-lg p-4">
                                                             <div className="flex items-center justify-center mb-2">
-                                                                <div className="w-12 h-12 bg-green-500 dark:bg-green-600 rounded-full flex items-center justify-center">
+                                                                <div className="w-12 h-12 bg-emerald-600 dark:bg-emerald-600 rounded-full flex items-center justify-center">
                                                                     <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                                                                     </svg>
@@ -292,24 +292,24 @@ export default function PublicWishlist({ slug, showBackLink = true }: PublicWish
                                                             </p>
                                                         </div>
                                                     ) : item.claimedDate ? (
-                                                        <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded p-3">
-                                                            <p className="text-sm font-medium text-green-800 dark:text-green-200">
+                                                        <div className="bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800 rounded p-3">
+                                                            <p className="text-sm font-medium text-emerald-800 dark:text-emerald-200">
                                                                 Already claimed!
                                                             </p>
                                                             {showClaimed && (
                                                                 unclaimingItemId === item.id ? (
-                                                                    <div className="mt-3 bg-red-50 dark:bg-red-900/10 p-3 rounded-md border border-red-100 dark:border-red-900/30">
+                                                                    <div className="mt-3 bg-rose-50 dark:bg-rose-900/10 p-3 rounded-md border border-rose-100 dark:border-rose-900/30">
                                                                         <form onSubmit={(e) => handleUnclaimSubmit(e, item.id)} className="space-y-3">
                                                                             <p className="text-sm text-gray-700 dark:text-gray-300 font-medium">Verify your name to unclaim:</p>
                                                                             {unclaimError && (
-                                                                                <div className="text-xs text-red-600 dark:text-red-400">
+                                                                                <div className="text-xs text-rose-600 dark:text-rose-400">
                                                                                     {unclaimError}
                                                                                 </div>
                                                                             )}
                                                                             <input
                                                                                 type="text"
                                                                                 placeholder="Your Name"
-                                                                                className="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 dark:bg-gray-700 dark:text-white"
+                                                                                className="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-rose-500 dark:bg-gray-700 dark:text-white"
                                                                                 value={unclaimName}
                                                                                 onChange={(e) => setUnclaimName(e.target.value)}
                                                                                 required
@@ -318,14 +318,14 @@ export default function PublicWishlist({ slug, showBackLink = true }: PublicWish
                                                                                 <button
                                                                                     type="button"
                                                                                     onClick={() => setUnclaimingItemId(null)}
-                                                                                    className="flex-1 px-3 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-md text-sm hover:bg-gray-300 dark:hover:bg-gray-600 font-medium transition-colors"
+                                                                                    className="flex-1 px-3 py-2 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-md text-sm hover:bg-gray-200 dark:hover:bg-gray-700 font-medium transition-colors cursor-pointer"
                                                                                 >
                                                                                     Cancel
                                                                                 </button>
                                                                                 <button
                                                                                     type="submit"
                                                                                     disabled={isUnclaiming}
-                                                                                    className="flex-1 px-3 py-2 bg-red-500 text-white rounded-md text-sm hover:bg-red-600 font-medium disabled:opacity-50 transition-colors"
+                                                                                    className="flex-1 px-3 py-2 bg-rose-100 dark:bg-rose-900/30 text-rose-800 dark:text-rose-300 rounded-md text-sm hover:bg-rose-200 dark:hover:bg-rose-900/50 font-medium disabled:opacity-50 transition-colors cursor-pointer"
                                                                                 >
                                                                                     {isUnclaiming ? '...' : 'Unclaim'}
                                                                                 </button>
@@ -335,7 +335,7 @@ export default function PublicWishlist({ slug, showBackLink = true }: PublicWish
                                                                 ) : (
                                                                     <button
                                                                         onClick={() => handleUnclaimClick(item.id)}
-                                                                        className="mt-3 w-full px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 font-medium disabled:opacity-50 transition-colors cursor-pointer text-sm"
+                                                                        className="mt-3 w-full px-4 py-2 bg-rose-100 dark:bg-rose-900/30 text-rose-800 dark:text-rose-300 rounded-md hover:bg-rose-200 dark:hover:bg-rose-900/50 font-medium disabled:opacity-50 transition-colors cursor-pointer text-sm"
                                                                     >
                                                                         Unclaim Item
                                                                     </button>
@@ -346,21 +346,21 @@ export default function PublicWishlist({ slug, showBackLink = true }: PublicWish
                                                         <div className="space-y-3">
                                                             <form onSubmit={(e) => handleSubmitClaim(e, item.id)} className="space-y-3">
                                                                 {claimError && (
-                                                                    <div className="p-2 bg-red-50 dark:bg-red-900/20 text-red-800 dark:text-red-400 rounded text-xs">
+                                                                    <div className="p-2 bg-rose-50 dark:bg-rose-900/20 text-rose-800 dark:text-rose-400 rounded text-xs">
                                                                         {claimError}
                                                                     </div>
                                                                 )}
 
                                                                 <div>
                                                                     <label htmlFor={`claim-name-${item.id}`} className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                                                                        Your Name <span className="text-red-500">*</span>:
+                                                                        Your Name <span className="text-rose-500">*</span>:
                                                                     </label>
                                                                     <input
                                                                         id={`claim-name-${item.id}`}
                                                                         type="text"
                                                                         required
                                                                         placeholder="Enter your name"
-                                                                        className="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 dark:bg-gray-700 dark:text-white"
+                                                                        className="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-500 dark:bg-gray-700 dark:text-white"
                                                                         value={claimName}
                                                                         onChange={(e) => setClaimName(e.target.value)}
                                                                     />
@@ -369,7 +369,7 @@ export default function PublicWishlist({ slug, showBackLink = true }: PublicWish
                                                                 <button
                                                                     type="submit"
                                                                     disabled={isClaiming}
-                                                                    className="w-full px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 font-medium disabled:opacity-50 transition-colors cursor-pointer"
+                                                                    className="w-full px-4 py-2 bg-emerald-600 text-white rounded-md hover:bg-emerald-700 font-medium disabled:opacity-50 transition-colors cursor-pointer"
                                                                 >
                                                                     {isClaiming ? 'Claiming...' : 'Confirm Claim'}
                                                                 </button>

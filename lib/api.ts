@@ -288,7 +288,6 @@ export interface Settings {
   passwordLock?: string;
   landingPageSlug?: string;
   headerColorLight?: string;
-
   primaryColor?: string;
   backgroundColor?: string;
 }
