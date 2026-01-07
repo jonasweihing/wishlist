@@ -177,10 +177,10 @@ export default function SettingsSection({ settings, wishlists, onUpdate }: Setti
                 <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
                   Theme Customization
                 </h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div>
                     <label className="block text-base font-medium text-gray-700 dark:text-gray-300 mb-2">
-                      Header Background (Light)
+                      Header Background
                     </label>
                     <div className="flex items-center gap-3">
                       <input
@@ -204,31 +204,7 @@ export default function SettingsSection({ settings, wishlists, onUpdate }: Setti
                   </div>
                   <div>
                     <label className="block text-base font-medium text-gray-700 dark:text-gray-300 mb-2">
-                      Header Background (Dark)
-                    </label>
-                    <div className="flex items-center gap-3">
-                      <input
-                        type="color"
-                        className="h-10 w-20 p-1 rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 cursor-pointer"
-                        value={settingsForm.headerColorDark || '#1f2937'}
-                        onChange={(e) =>
-                          setSettingsForm((prev) => ({ ...prev, headerColorDark: e.target.value }))
-                        }
-                      />
-                      <input
-                        type="text"
-                        className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:text-white uppercase"
-                        value={settingsForm.headerColorDark || ''}
-                        onChange={(e) =>
-                          setSettingsForm((prev) => ({ ...prev, headerColorDark: e.target.value }))
-                        }
-                        placeholder="#1F2937"
-                      />
-                    </div>
-                  </div>
-                  <div className="md:col-span-2">
-                    <label className="block text-base font-medium text-gray-700 dark:text-gray-300 mb-2">
-                      Primary Color (Buttons & Links)
+                      Primary Color
                     </label>
                     <div className="flex items-center gap-3">
                       <input
@@ -247,6 +223,30 @@ export default function SettingsSection({ settings, wishlists, onUpdate }: Setti
                           setSettingsForm((prev) => ({ ...prev, primaryColor: e.target.value }))
                         }
                         placeholder="#4F46E5"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <label className="block text-base font-medium text-gray-700 dark:text-gray-300 mb-2">
+                      Main Background Color
+                    </label>
+                    <div className="flex items-center gap-3">
+                      <input
+                        type="color"
+                        className="h-10 w-20 p-1 rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 cursor-pointer"
+                        value={settingsForm.backgroundColor || '#f9fafb'}
+                        onChange={(e) =>
+                          setSettingsForm((prev) => ({ ...prev, backgroundColor: e.target.value }))
+                        }
+                      />
+                      <input
+                        type="text"
+                        className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:text-white uppercase"
+                        value={settingsForm.backgroundColor || ''}
+                        onChange={(e) =>
+                          setSettingsForm((prev) => ({ ...prev, backgroundColor: e.target.value }))
+                        }
+                        placeholder="#F9FAFB"
                       />
                     </div>
                   </div>
@@ -299,9 +299,9 @@ export default function SettingsSection({ settings, wishlists, onUpdate }: Setti
               </div>
               <div className="pt-3 border-t border-gray-200 dark:border-gray-700">
                 <p className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">Theme Colors</p>
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div>
-                    <span className="text-xs text-gray-500 dark:text-gray-400 block mb-1">Header (Light)</span>
+                    <span className="text-xs text-gray-500 dark:text-gray-400 block mb-1">Header Background</span>
                     <div className="flex items-center gap-2">
                       <div
                         className="w-6 h-6 rounded-full border border-gray-200"
@@ -312,19 +312,8 @@ export default function SettingsSection({ settings, wishlists, onUpdate }: Setti
                       </span>
                     </div>
                   </div>
+
                   <div>
-                    <span className="text-xs text-gray-500 dark:text-gray-400 block mb-1">Header (Dark)</span>
-                    <div className="flex items-center gap-2">
-                      <div
-                        className="w-6 h-6 rounded-full border border-gray-200"
-                        style={{ backgroundColor: settings.headerColorDark || '#1f2937' }}
-                      />
-                      <span className="text-sm text-gray-900 dark:text-white">
-                        {settings.headerColorDark || 'Default'}
-                      </span>
-                    </div>
-                  </div>
-                  <div className="col-span-2">
                     <span className="text-xs text-gray-500 dark:text-gray-400 block mb-1">Primary Color</span>
                     <div className="flex items-center gap-2">
                       <div
@@ -333,6 +322,18 @@ export default function SettingsSection({ settings, wishlists, onUpdate }: Setti
                       />
                       <span className="text-sm text-gray-900 dark:text-white">
                         {settings.primaryColor || 'Default'}
+                      </span>
+                    </div>
+                  </div>
+                  <div>
+                    <span className="text-xs text-gray-500 dark:text-gray-400 block mb-1">Background Color</span>
+                    <div className="flex items-center gap-2">
+                      <div
+                        className="w-6 h-6 rounded-full border border-gray-200"
+                        style={{ backgroundColor: settings.backgroundColor || '#f9fafb' }}
+                      />
+                      <span className="text-sm text-gray-900 dark:text-white">
+                        {settings.backgroundColor || 'Default (Gray-50)'}
                       </span>
                     </div>
                   </div>

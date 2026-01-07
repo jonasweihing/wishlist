@@ -1,18 +1,10 @@
 @import "tailwindcss";
 
-@variant dark (.dark &);
+@variant dark (&:where(.dark, .dark *));
 
 :root {
   --background: #ffffff;
   --foreground: #171717;
-  color-scheme: light;
-}
-
-:root[data-theme="dark"],
-.dark {
-  --background: #0a0a0a;
-  --foreground: #ededed;
-  color-scheme: dark;
 }
 
 @theme inline {
@@ -52,23 +44,4 @@ body {
 :root input::placeholder,
 :root textarea::placeholder {
   color: #9ca3af;
-}
-
-/* Dark mode form elements */
-:root[data-theme="dark"] input,
-:root[data-theme="dark"] textarea,
-:root[data-theme="dark"] select,
-.dark input,
-.dark textarea,
-.dark select {
-  color: #ededed;
-  background-color: #1f2937;
-  border-color: #374151;
-}
-
-:root[data-theme="dark"] input::placeholder,
-:root[data-theme="dark"] textarea::placeholder,
-.dark input::placeholder,
-.dark textarea::placeholder {
-  color: #6b7280;
 }

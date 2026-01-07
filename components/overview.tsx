@@ -40,7 +40,7 @@ export default function Overview() {
 
     return (
         <PasswordLockGuard>
-            <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+            <div className="min-h-screen">
                 <Header
                     title={settings.siteTitle}
                     subtitle={settings.homepageSubtext}

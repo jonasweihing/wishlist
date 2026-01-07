@@ -17,16 +17,16 @@ async function getSettings() {
       siteTitle: settingsObj.siteTitle || 'Wishlist',
       homepageSubtext: settingsObj.homepageSubtext || 'Browse and explore available wishlists',
       headerColorLight: settingsObj.headerColorLight || '#ffffff',
-      headerColorDark: settingsObj.headerColorDark || '#1f2937',
       primaryColor: settingsObj.primaryColor || '#4f46e5',
+      backgroundColor: settingsObj.backgroundColor || '',
     };
   } catch (error) {
     return {
       siteTitle: 'Wishlist',
       homepageSubtext: 'Browse and explore available wishlists',
       headerColorLight: '#ffffff',
-      headerColorDark: '#1f2937',
       primaryColor: '#4f46e5',
+      backgroundColor: '#f9fafb',
     };
   }
 }
@@ -52,11 +52,11 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body
-        className="font-sans antialiased bg-gray-50 dark:bg-gray-900 transition-colors duration-300"
+        className="font-sans antialiased transition-colors duration-300"
         style={{
           ['--header-bg-light' as any]: settings.headerColorLight,
-          ['--header-bg-dark' as any]: settings.headerColorDark,
           ['--primary-color' as any]: settings.primaryColor,
+          backgroundColor: settings.backgroundColor || '#f9fafb', // Default to gray-50 equivalent
         }}
       >
         <AuthProvider>

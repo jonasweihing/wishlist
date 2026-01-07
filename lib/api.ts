@@ -288,8 +288,9 @@ export interface Settings {
   passwordLock?: string;
   landingPageSlug?: string;
   headerColorLight?: string;
-  headerColorDark?: string;
+
   primaryColor?: string;
+  backgroundColor?: string;
 }
 
 export const settingsApi = {

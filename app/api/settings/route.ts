@@ -192,26 +192,7 @@ export async function PUT(request: NextRequest) {
       }
     }
 
-    // Update or insert headerColorDark
-    if (body.headerColorDark !== undefined) {
-      const existing = await db
-        .select()
-        .from(settings)
-        .where(eq(settings.key, 'headerColorDark'))
-        .limit(1);
 
-      if (existing.length > 0) {
-        await db
-          .update(settings)
-          .set({ value: body.headerColorDark, updatedDate: new Date() })
-          .where(eq(settings.key, 'headerColorDark'));
-      } else {
-        await db.insert(settings).values({
-          key: 'headerColorDark',
-          value: body.headerColorDark,
-        });
-      }
-    }
 
     // Update or insert primaryColor
     if (body.primaryColor !== undefined) {
@@ -230,6 +211,27 @@ export async function PUT(request: NextRequest) {
         await db.insert(settings).values({
           key: 'primaryColor',
           value: body.primaryColor,
+        });
+      }
+    }
+
+    // Update or insert backgroundColor
+    if (body.backgroundColor !== undefined) {
+      const existing = await db
+        .select()
+        .from(settings)
+        .where(eq(settings.key, 'backgroundColor'))
+        .limit(1);
+
+      if (existing.length > 0) {
+        await db
+          .update(settings)
+          .set({ value: body.backgroundColor, updatedDate: new Date() })
+          .where(eq(settings.key, 'backgroundColor'));
+      } else {
+        await db.insert(settings).values({
+          key: 'backgroundColor',
+          value: body.backgroundColor,
         });
       }
     }

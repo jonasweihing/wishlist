@@ -150,7 +150,7 @@ export default function AdminPage() {
 
   return (
     <ProtectedRoute>
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+      <div className="min-h-screen">
         <Header
           title="Dashboard"
           subtitle="Manage your wishlists and items"

@@ -133,7 +133,7 @@ export default function PublicWishlist({ slug, showBackLink = true }: PublicWish
 
     if (isLoading) {
         return (
-            <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
+            <div className="min-h-screen flex items-center justify-center">
                 <p className="text-gray-600 dark:text-gray-400">Loading...</p>
             </div>
         );
@@ -141,7 +141,7 @@ export default function PublicWishlist({ slug, showBackLink = true }: PublicWish
 
     if (error || !wishlist) {
         return (
-            <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
+            <div className="min-h-screen flex items-center justify-center">
                 <div className="text-center">
                     <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Wishlist Not Found</h1>
                     <p className="text-gray-600 dark:text-gray-400">{error || 'This wishlist does not exist or is not public.'}</p>
@@ -152,7 +152,7 @@ export default function PublicWishlist({ slug, showBackLink = true }: PublicWish
 
     return (
         <PasswordLockGuard>
-            <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+            <div className="min-h-screen">
                 <Header
                     title={wishlist.name}
                     subtitle={wishlist.description || undefined}
