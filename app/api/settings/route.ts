@@ -171,6 +171,69 @@ export async function PUT(request: NextRequest) {
       }
     }
 
+    // Update or insert headerColorLight
+    if (body.headerColorLight !== undefined) {
+      const existing = await db
+        .select()
+        .from(settings)
+        .where(eq(settings.key, 'headerColorLight'))
+        .limit(1);
+
+      if (existing.length > 0) {
+        await db
+          .update(settings)
+          .set({ value: body.headerColorLight, updatedDate: new Date() })
+          .where(eq(settings.key, 'headerColorLight'));
+      } else {
+        await db.insert(settings).values({
+          key: 'headerColorLight',
+          value: body.headerColorLight,
+        });
+      }
+    }
+
+    // Update or insert headerColorDark
+    if (body.headerColorDark !== undefined) {
+      const existing = await db
+        .select()
+        .from(settings)
+        .where(eq(settings.key, 'headerColorDark'))
+        .limit(1);
+
+      if (existing.length > 0) {
+        await db
+          .update(settings)
+          .set({ value: body.headerColorDark, updatedDate: new Date() })
+          .where(eq(settings.key, 'headerColorDark'));
+      } else {
+        await db.insert(settings).values({
+          key: 'headerColorDark',
+          value: body.headerColorDark,
+        });
+      }
+    }
+
+    // Update or insert primaryColor
+    if (body.primaryColor !== undefined) {
+      const existing = await db
+        .select()
+        .from(settings)
+        .where(eq(settings.key, 'primaryColor'))
+        .limit(1);
+
+      if (existing.length > 0) {
+        await db
+          .update(settings)
+          .set({ value: body.primaryColor, updatedDate: new Date() })
+          .where(eq(settings.key, 'primaryColor'));
+      } else {
+        await db.insert(settings).values({
+          key: 'primaryColor',
+          value: body.primaryColor,
+        });
+      }
+    }
+
     return NextResponse.json({
       success: true,
       message: 'Settings updated successfully',

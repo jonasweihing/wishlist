@@ -16,11 +16,17 @@ async function getSettings() {
     return {
       siteTitle: settingsObj.siteTitle || 'Wishlist',
       homepageSubtext: settingsObj.homepageSubtext || 'Browse and explore available wishlists',
+      headerColorLight: settingsObj.headerColorLight || '#ffffff',
+      headerColorDark: settingsObj.headerColorDark || '#1f2937',
+      primaryColor: settingsObj.primaryColor || '#4f46e5',
     };
   } catch (error) {
     return {
       siteTitle: 'Wishlist',
       homepageSubtext: 'Browse and explore available wishlists',
+      headerColorLight: '#ffffff',
+      headerColorDark: '#1f2937',
+      primaryColor: '#4f46e5',
     };
   }
 }
@@ -36,14 +42,23 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const settings = await getSettings();
+
   return (
     <html lang="en">
-      <body className="font-sans antialiased bg-gray-50 dark:bg-gray-900">
+      <body
+        className="font-sans antialiased bg-gray-50 dark:bg-gray-900 transition-colors duration-300"
+        style={{
+          ['--header-bg-light' as any]: settings.headerColorLight,
+          ['--header-bg-dark' as any]: settings.headerColorDark,
+          ['--primary-color' as any]: settings.primaryColor,
+        }}
+      >
         <AuthProvider>
           <ThemeProvider>{children}</ThemeProvider>
         </AuthProvider>

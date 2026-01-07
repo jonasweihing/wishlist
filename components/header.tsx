@@ -1,7 +1,5 @@
 'use client';
 
-import { useAuth } from '@/lib/auth-context';
-
 interface HeaderProps {
   title: string;
   subtitle?: string;
@@ -11,23 +9,12 @@ interface HeaderProps {
 }
 
 export default function Header({ title, subtitle, imageUrl, actions, maxWidth = 'max-w-7xl' }: HeaderProps) {
-  const { isAuthenticated } = useAuth();
-
   return (
     <>
-      {/* Admin Warning */}
-      {isAuthenticated && (
-        <div className="sticky top-0 z-50 bg-yellow-50 dark:bg-yellow-900 border-b border-yellow-200 dark:border-yellow-800">
-          <div className={`${maxWidth} mx-auto py-3 px-4 sm:px-6 lg:px-8`}>
-            <p className="text-center text-sm text-yellow-800 dark:text-yellow-200">
-              ⚠️ Warning: Viewing public wishlists may spoil surprises
-            </p>
-          </div>
-        </div>
-      )}
-
       {/* Hero Section */}
-      <div className="bg-white dark:bg-gray-800 shadow-sm">
+      <div
+        className="shadow-sm transition-colors duration-300 bg-[var(--header-bg-light)] dark:bg-[var(--header-bg-dark)]"
+      >
         <div className={`${maxWidth} mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8`}>
           <div className="flex flex-col md:flex-row items-center md:items-stretch gap-8">
             {imageUrl && (
@@ -40,11 +27,11 @@ export default function Header({ title, subtitle, imageUrl, actions, maxWidth = 
               </div>
             )}
             <div className={`flex-1 flex flex-col ${imageUrl ? 'text-left items-start' : 'text-center items-center'}`}>
-              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-gray-900 dark:text-white mb-4">
+              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-gray-900 mb-4">
                 {title}
               </h1>
               {subtitle && (
-                <p className={`text-xl sm:text-2xl text-gray-600 dark:text-gray-300 mb-6 ${imageUrl ? '' : 'max-w-3xl'}`}>
+                <p className={`text-xl sm:text-2xl text-gray-600 mb-6 ${imageUrl ? '' : 'max-w-3xl'}`}>
                   {subtitle}
                 </p>
               )}

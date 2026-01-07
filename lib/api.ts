@@ -287,6 +287,9 @@ export interface Settings {
   passwordLockEnabled?: boolean;
   passwordLock?: string;
   landingPageSlug?: string;
+  headerColorLight?: string;
+  headerColorDark?: string;
+  primaryColor?: string;
 }
 
 export const settingsApi = {
