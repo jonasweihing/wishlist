@@ -1,10 +1,12 @@
 'use client';
 
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 import { useTheme } from '@/components/theme-provider';
 import { useAuth } from '@/lib/auth-context';
 
 export default function Footer() {
+  const t = useTranslations('Footer');
   const { theme, toggleTheme } = useTheme();
   const { isAuthenticated } = useAuth();
 
@@ -16,7 +18,7 @@ export default function Footer() {
             href="/admin/login"
             className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
           >
-            Admin
+            {t('admin')}
           </Link>
           {isAuthenticated && (
             <>

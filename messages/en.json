@@ -54,5 +54,12 @@
     },
     "Common": {
         "loading": "Loading..."
+    },
+    "Footer": {
+        "admin": "Admin"
+    },
+    "Metadata": {
+        "title": "Wishlist",
+        "description": "Self-hosted wishlist application for families"
     }
 }

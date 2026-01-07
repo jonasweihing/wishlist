@@ -34,11 +34,18 @@ async function getSettings() {
   }
 }
 
-export async function generateMetadata(): Promise<Metadata> {
+export async function generateMetadata({
+  params
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const messages = (await getMessages({ locale })) as any;
   const settings = await getSettings();
+
   return {
     title: settings.siteTitle,
-    description: "Self-hosted wishlist application for families",
+    description: messages.Metadata?.description || "Self-hosted wishlist application for families",
     icons: {
       icon: '/icon.svg',
     },
