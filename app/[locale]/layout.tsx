@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
-import "./globals.css";
+import { NextIntlClientProvider } from 'next-intl';
+import { getMessages } from 'next-intl/server';
+import { notFound } from 'next/navigation';
+import "../globals.css"; // Corrected path relative to app/[locale]
 import { AuthProvider } from "@/lib/auth-context";
 import { ThemeProvider } from "@/components/theme-provider";
 import { db, settings } from "@/lib/db";
@@ -44,24 +47,39 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function RootLayout({
   children,
+  params
 }: Readonly<{
   children: React.ReactNode;
+  params: Promise<{ locale: string }>;
 }>) {
+  const { locale } = await params;
+
+  // Ensure that the incoming `locale` is valid
+  if (!['en', 'de'].includes(locale)) {
+    notFound();
+  }
+
+  // Providing all messages to the client
+  // side is the easiest way to get started
+  const messages = await getMessages();
+
   const settings = await getSettings();
 
   return (
-    <html lang="en">
+    <html lang={locale}>
       <body
         className="font-sans antialiased transition-colors duration-300"
         style={{
           ['--header-bg-light' as any]: settings.headerColorLight,
           ['--primary-color' as any]: settings.primaryColor,
-          backgroundColor: settings.backgroundColor || '#f9fafb', // Default to gray-50 equivalent
+          backgroundColor: settings.backgroundColor || '#f9fafb',
         }}
       >
-        <AuthProvider>
-          <ThemeProvider>{children}</ThemeProvider>
-        </AuthProvider>
+        <NextIntlClientProvider messages={messages}>
+          <AuthProvider>
+            <ThemeProvider>{children}</ThemeProvider>
+          </AuthProvider>
+        </NextIntlClientProvider>
       </body>
     </html>
   );

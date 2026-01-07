@@ -2,8 +2,10 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 
 export default function PasswordLockGuard({ children }: { children: React.ReactNode }) {
+  const translateCommon = useTranslations('Common');
   const router = useRouter();
   const pathname = usePathname();
   const [isChecking, setIsChecking] = useState(true);
@@ -42,7 +44,7 @@ export default function PasswordLockGuard({ children }: { children: React.ReactN
   if (isChecking) {
     return (
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
-        <p className="text-gray-600 dark:text-gray-400">Loading...</p>
+        <p className="text-gray-600 dark:text-gray-400">{translateCommon('loading')}</p>
       </div>
     );
   }

@@ -1,0 +1,58 @@
+{
+    "HomePage": {
+        "title": "Wishlist",
+        "subtext": "Browse and explore available wishlists"
+    },
+    "Wishlist": {
+        "loading": "Loading...",
+        "notFoundTitle": "Wishlist Not Found",
+        "notFoundMessage": "This wishlist does not exist or is not public.",
+        "backToOverview": "Back to Overview",
+        "itemsCount": "{count, plural, =0 {No items} one {1 item} other {# items}}",
+        "showClaimed": "Show claimed items",
+        "noItems": "No items in this wishlist yet",
+        "allItemsClaimed": "All items have been claimed!",
+        "itemClaimedSuccess": "Item Claimed!",
+        "alreadyClaimed": "Already claimed!",
+        "verifyUnclaim": "Verify your name to unclaim:",
+        "yourName": "Your Name",
+        "enterName": "Enter your name",
+        "pleaseEnterName": "Please enter your name",
+        "cancel": "Cancel",
+        "unclaim": "Unclaim",
+        "unclaimItem": "Unclaim Item",
+        "claim": "Claim",
+        "claimThisItem": "Claim This Item",
+        "claiming": "Claiming...",
+        "confirmClaim": "Confirm Claim",
+        "failedClaim": "Failed to claim item",
+        "failedUnclaim": "Failed to unclaim item",
+        "searchPlaceholder": "Search..."
+    },
+    "Overview": {
+        "loading": "Loading...",
+        "noWishlists": "No public wishlists available yet"
+    },
+    "Share": {
+        "title": "Check out this wishlist!",
+        "text": "I thought you might be interested in this wishlist."
+    },
+    "Lock": {
+        "title": "Password Required",
+        "subtitle": "Please enter the password to access this site",
+        "password": "Password",
+        "enterPassword": "Enter password",
+        "submit": "Submit",
+        "verifying": "Verifying...",
+        "error": "Incorrect password",
+        "failed": "Failed to verify password. Please try again."
+    },
+    "NotFound": {
+        "title": "Page Not Found",
+        "description": "The page you are looking for doesn't exist.",
+        "goHome": "Go Home"
+    },
+    "Common": {
+        "loading": "Loading..."
+    }
+}

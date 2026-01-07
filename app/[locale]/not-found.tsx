@@ -1,5 +1,8 @@
+import { useTranslations } from 'next-intl';
+
 // Root-level not-found page
 export default function RootNotFound() {
+  const translateNotFound = useTranslations('NotFound');
   return (
     <html lang="en">
       <body>
@@ -22,10 +25,10 @@ export default function RootNotFound() {
           }}>
             <div style={{ fontSize: '3.75rem', fontWeight: 'bold', color: '#1f2937' }}>404</div>
             <h1 style={{ fontSize: '1.5rem', fontWeight: '600', color: '#111827', marginTop: '1rem' }}>
-              Page Not Found
+              {translateNotFound('title')}
             </h1>
             <p style={{ color: '#4b5563', marginTop: '1rem' }}>
-              The page you are looking for doesn't exist.
+              {translateNotFound('description')}
             </p>
             <a
               href="/"
@@ -40,7 +43,7 @@ export default function RootNotFound() {
                 textDecoration: 'none'
               }}
             >
-              Go Home
+              {translateNotFound('goHome')}
             </a>
           </div>
         </div>

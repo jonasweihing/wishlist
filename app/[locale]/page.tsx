@@ -1,11 +1,13 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useTranslations } from 'next-intl';
 import { wishlistsApi, settingsApi, type Wishlist, type Settings } from '@/lib/api';
 import PublicWishlist from '@/components/public-wishlist';
 import Overview from '@/components/overview';
 
 export default function Home() {
+  const translateWishlist = useTranslations('Wishlist');
   const [wishlists, setWishlists] = useState<Wishlist[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [settings, setSettings] = useState<Settings | null>(null);
@@ -39,7 +41,7 @@ export default function Home() {
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <p className="text-gray-600 dark:text-gray-400">Loading...</p>
+        <p className="text-gray-600 dark:text-gray-400">{translateWishlist('loading')}</p>
       </div>
     );
   }

@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useTranslations } from 'next-intl';
 import { wishlistsApi, itemsApi, claimingApi, type Wishlist, type Item } from '@/lib/api';
 import Header from '@/components/header';
 import Footer from '@/components/footer';
@@ -12,6 +13,7 @@ interface PublicWishlistProps {
 }
 
 export default function PublicWishlist({ slug, showBackLink = true }: PublicWishlistProps) {
+    const translateWishlist = useTranslations('Wishlist');
     const [wishlist, setWishlist] = useState<Wishlist | null>(null);
     const [items, setItems] = useState<Item[]>([]);
     const [showClaimed, setShowClaimed] = useState(false);
@@ -70,7 +72,7 @@ export default function PublicWishlist({ slug, showBackLink = true }: PublicWish
         e.preventDefault();
 
         if (!claimName.trim()) {
-            setClaimError('Please enter your name');
+            setClaimError(translateWishlist('pleaseEnterName'));
             return;
         }
 
@@ -90,7 +92,7 @@ export default function PublicWishlist({ slug, showBackLink = true }: PublicWish
                 setJustClaimedItemId(null);
             }, 3000);
         } catch (err: any) {
-            setClaimError(err.message || 'Failed to claim item');
+            setClaimError(err.message || translateWishlist('failedClaim'));
         } finally {
             setIsClaiming(false);
         }
@@ -100,7 +102,7 @@ export default function PublicWishlist({ slug, showBackLink = true }: PublicWish
         e.preventDefault();
 
         if (!unclaimName.trim()) {
-            setUnclaimError('Please enter your name');
+            setUnclaimError(translateWishlist('pleaseEnterName'));
             return;
         }
 
@@ -113,7 +115,7 @@ export default function PublicWishlist({ slug, showBackLink = true }: PublicWish
             setUnclaimName('');
             fetchWishlist();
         } catch (err: any) {
-            setUnclaimError(err.message || 'Failed to unclaim item');
+            setUnclaimError(err.message || translateWishlist('failedUnclaim'));
         } finally {
             setIsUnclaiming(false);
         }
@@ -134,7 +136,7 @@ export default function PublicWishlist({ slug, showBackLink = true }: PublicWish
     if (isLoading) {
         return (
             <div className="min-h-screen flex items-center justify-center">
-                <p className="text-gray-600 dark:text-gray-400">Loading...</p>
+                <p className="text-gray-600 dark:text-gray-400">{translateWishlist('loading')}</p>
             </div>
         );
     }
@@ -143,8 +145,8 @@ export default function PublicWishlist({ slug, showBackLink = true }: PublicWish
         return (
             <div className="min-h-screen flex items-center justify-center">
                 <div className="text-center">
-                    <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Wishlist Not Found</h1>
-                    <p className="text-gray-600 dark:text-gray-400">{error || 'This wishlist does not exist or is not public.'}</p>
+                    <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">{translateWishlist('notFoundTitle')}</h1>
+                    <p className="text-gray-600 dark:text-gray-400">{error || translateWishlist('notFoundMessage')}</p>
                 </div>
             </div>
         );
@@ -181,7 +183,7 @@ export default function PublicWishlist({ slug, showBackLink = true }: PublicWish
                                         d="M10 19l-7-7m0 0l7-7m-7 7h18"
                                     />
                                 </svg>
-                                Back to Overview
+                                {translateWishlist('backToOverview')}
                             </a>
                         )}
 
@@ -195,7 +197,7 @@ export default function PublicWishlist({ slug, showBackLink = true }: PublicWish
                             {/* Center: Items Count */}
                             <div className="text-center order-1 sm:order-2">
                                 <span className="inline-block px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 text-sm font-medium rounded-full">
-                                    {filteredItems.length} of {items.length} items
+                                    {translateWishlist('itemsCount', { count: filteredItems.length, total: items.length })}
                                 </span>
                             </div>
 
@@ -208,7 +210,7 @@ export default function PublicWishlist({ slug, showBackLink = true }: PublicWish
                                         onChange={(e) => setShowClaimed(e.target.checked)}
                                         className="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
                                     />
-                                    <span className="ml-2 text-sm font-medium text-gray-700 dark:text-gray-200">Show claimed items</span>
+                                    <span className="ml-2 text-sm font-medium text-gray-700 dark:text-gray-200">{translateWishlist('showClaimed')}</span>
                                 </label>
                             </div>
                         </div>
@@ -217,7 +219,7 @@ export default function PublicWishlist({ slug, showBackLink = true }: PublicWish
                         {filteredItems.length === 0 ? (
                             <div className="text-center py-12 bg-white dark:bg-gray-800 rounded-lg shadow">
                                 <p className="text-gray-500 dark:text-gray-400">
-                                    {showClaimed ? 'No items in this wishlist yet' : 'All items have been claimed!'}
+                                    {showClaimed ? translateWishlist('noItems') : translateWishlist('allItemsClaimed')}
                                 </p>
                             </div>
                         ) : (
@@ -288,19 +290,19 @@ export default function PublicWishlist({ slug, showBackLink = true }: PublicWish
                                                                 </div>
                                                             </div>
                                                             <p className="text-center text-lg font-semibold text-gray-900 dark:text-white mb-1">
-                                                                Item Claimed!
+                                                                {translateWishlist('itemClaimedSuccess')}
                                                             </p>
                                                         </div>
                                                     ) : item.claimedDate ? (
                                                         <div className="bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800 rounded p-3">
                                                             <p className="text-sm font-medium text-emerald-800 dark:text-emerald-200">
-                                                                Already claimed!
+                                                                {translateWishlist('alreadyClaimed')}
                                                             </p>
                                                             {showClaimed && (
                                                                 unclaimingItemId === item.id ? (
                                                                     <div className="mt-3 bg-rose-50 dark:bg-rose-900/10 p-3 rounded-md border border-rose-100 dark:border-rose-900/30">
                                                                         <form onSubmit={(e) => handleUnclaimSubmit(e, item.id)} className="space-y-3">
-                                                                            <p className="text-sm text-gray-700 dark:text-gray-300 font-medium">Verify your name to unclaim:</p>
+                                                                            <p className="text-sm text-gray-700 dark:text-gray-300 font-medium">{translateWishlist('verifyUnclaim')}</p>
                                                                             {unclaimError && (
                                                                                 <div className="text-xs text-rose-600 dark:text-rose-400">
                                                                                     {unclaimError}
@@ -308,7 +310,7 @@ export default function PublicWishlist({ slug, showBackLink = true }: PublicWish
                                                                             )}
                                                                             <input
                                                                                 type="text"
-                                                                                placeholder="Your Name"
+                                                                                placeholder={translateWishlist('yourName')}
                                                                                 className="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-rose-500 dark:bg-gray-700 dark:text-white"
                                                                                 value={unclaimName}
                                                                                 onChange={(e) => setUnclaimName(e.target.value)}
@@ -320,14 +322,14 @@ export default function PublicWishlist({ slug, showBackLink = true }: PublicWish
                                                                                     onClick={() => setUnclaimingItemId(null)}
                                                                                     className="flex-1 px-3 py-2 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-md text-sm hover:bg-gray-200 dark:hover:bg-gray-700 font-medium transition-colors cursor-pointer"
                                                                                 >
-                                                                                    Cancel
+                                                                                    {translateWishlist('cancel')}
                                                                                 </button>
                                                                                 <button
                                                                                     type="submit"
                                                                                     disabled={isUnclaiming}
                                                                                     className="flex-1 px-3 py-2 bg-rose-100 dark:bg-rose-900/30 text-rose-800 dark:text-rose-300 rounded-md text-sm hover:bg-rose-200 dark:hover:bg-rose-900/50 font-medium disabled:opacity-50 transition-colors cursor-pointer"
                                                                                 >
-                                                                                    {isUnclaiming ? '...' : 'Unclaim'}
+                                                                                    {isUnclaiming ? '...' : translateWishlist('unclaim')}
                                                                                 </button>
                                                                             </div>
                                                                         </form>
@@ -337,7 +339,7 @@ export default function PublicWishlist({ slug, showBackLink = true }: PublicWish
                                                                         onClick={() => handleUnclaimClick(item.id)}
                                                                         className="mt-3 w-full px-4 py-2 bg-rose-100 dark:bg-rose-900/30 text-rose-800 dark:text-rose-300 rounded-md hover:bg-rose-200 dark:hover:bg-rose-900/50 font-medium disabled:opacity-50 transition-colors cursor-pointer text-sm"
                                                                     >
-                                                                        Unclaim Item
+                                                                        {translateWishlist('unclaimItem')}
                                                                     </button>
                                                                 )
                                                             )}
@@ -353,13 +355,13 @@ export default function PublicWishlist({ slug, showBackLink = true }: PublicWish
 
                                                                 <div>
                                                                     <label htmlFor={`claim-name-${item.id}`} className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                                                                        Your Name <span className="text-rose-500">*</span>:
+                                                                        {translateWishlist('yourName')} <span className="text-rose-500">*</span>:
                                                                     </label>
                                                                     <input
                                                                         id={`claim-name-${item.id}`}
                                                                         type="text"
                                                                         required
-                                                                        placeholder="Enter your name"
+                                                                        placeholder={translateWishlist('enterName')}
                                                                         className="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-500 dark:bg-gray-700 dark:text-white"
                                                                         value={claimName}
                                                                         onChange={(e) => setClaimName(e.target.value)}
@@ -371,7 +373,7 @@ export default function PublicWishlist({ slug, showBackLink = true }: PublicWish
                                                                     disabled={isClaiming}
                                                                     className="w-full px-4 py-2 bg-emerald-600 text-white rounded-md hover:bg-emerald-700 font-medium disabled:opacity-50 transition-colors cursor-pointer"
                                                                 >
-                                                                    {isClaiming ? 'Claiming...' : 'Confirm Claim'}
+                                                                    {isClaiming ? translateWishlist('claiming') : translateWishlist('confirmClaim')}
                                                                 </button>
                                                             </form>
                                                         </div>
@@ -380,7 +382,7 @@ export default function PublicWishlist({ slug, showBackLink = true }: PublicWish
                                                             onClick={() => handleClaimItem(item.id)}
                                                             className="w-full px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 font-medium transition-colors cursor-pointer"
                                                         >
-                                                            Claim This Item
+                                                            {translateWishlist('claimThisItem')}
                                                         </button>
                                                     )}
                                                 </div>

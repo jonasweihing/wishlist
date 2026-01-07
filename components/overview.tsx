@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 import { wishlistsApi, settingsApi, type Wishlist, type Settings } from '@/lib/api';
 import Header from '@/components/header';
 import Footer from '@/components/footer';
@@ -9,6 +10,8 @@ import PasswordLockGuard from '@/components/password-lock-guard';
 import ShareButton from '@/components/share-button';
 
 export default function Overview() {
+    const translateOverview = useTranslations('Overview');
+    const translateShare = useTranslations('Share');
     const [wishlists, setWishlists] = useState<Wishlist[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [settings, setSettings] = useState<Settings>({ siteTitle: 'Wishlist', homepageSubtext: 'Browse and explore available wishlists' });
@@ -46,8 +49,8 @@ export default function Overview() {
                     subtitle={settings.homepageSubtext}
                     actions={
                         <ShareButton
-                            title="Check out this wishlist!"
-                            text="I thought you might be interested in this wishlist."
+                            title={translateShare('title')}
+                            text={translateShare('text')}
                         />
                     }
                 />
@@ -57,11 +60,11 @@ export default function Overview() {
                     <div className="px-4 sm:px-0">
                         {isLoading ? (
                             <div className="text-center py-12">
-                                <p className="text-gray-600 dark:text-gray-400">Loading...</p>
+                                <p className="text-gray-600 dark:text-gray-400">{translateOverview('loading')}</p>
                             </div>
                         ) : wishlists.length === 0 ? (
                             <div className="text-center py-12 bg-white dark:bg-gray-800 rounded-lg shadow">
-                                <p className="text-gray-500 dark:text-gray-400">No public wishlists available yet</p>
+                                <p className="text-gray-500 dark:text-gray-400">{translateOverview('noWishlists')}</p>
                             </div>
                         ) : (
                             <div className="grid grid-cols-1 gap-6">

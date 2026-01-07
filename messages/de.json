@@ -1,0 +1,58 @@
+{
+    "HomePage": {
+        "title": "Wunschliste",
+        "subtext": "Durchstöbere verfügbare Wunschlisten"
+    },
+    "Wishlist": {
+        "loading": "Lädt...",
+        "notFoundTitle": "Wunschliste nicht gefunden",
+        "notFoundMessage": "Diese Wunschliste existiert nicht oder ist nicht öffentlich.",
+        "backToOverview": "Zurück zur Übersicht",
+        "itemsCount": "{count, plural, =0 {Keine Artikel} one {1 Artikel} other {# Artikel}}",
+        "showClaimed": "Reservierte anzeigen",
+        "noItems": "Noch keine Artikel in dieser Wunschliste",
+        "allItemsClaimed": "Alle Artikel wurden bereits reserviert!",
+        "itemClaimedSuccess": "Artikel reserviert!",
+        "alreadyClaimed": "Bereits reserviert!",
+        "verifyUnclaim": "Name zur Bestätigung eingeben:",
+        "yourName": "Dein Name",
+        "enterName": "Deinen Namen eingeben",
+        "pleaseEnterName": "Bitte gib deinen Namen ein",
+        "cancel": "Abbrechen",
+        "unclaim": "Freigeben",
+        "unclaimItem": "Reservierung aufheben",
+        "claim": "Reservieren",
+        "claimThisItem": "Diesen Artikel reservieren",
+        "claiming": "Reserviere...",
+        "confirmClaim": "Reservierung bestätigen",
+        "failedClaim": "Fehler beim Reservieren",
+        "failedUnclaim": "Fehler beim Freigeben",
+        "searchPlaceholder": "Suchen..."
+    },
+    "Overview": {
+        "loading": "Lädt...",
+        "noWishlists": "Noch keine öffentlichen Wunschlisten verfügbar"
+    },
+    "Share": {
+        "title": "Schau dir diese Wunschliste an!",
+        "text": "Ich dachte, diese Wunschliste könnte dich interessieren."
+    },
+    "Lock": {
+        "title": "Passwort erforderlich",
+        "subtitle": "Bitte gib das Passwort ein, um auf diese Seite zuzugreifen",
+        "password": "Passwort",
+        "enterPassword": "Passwort eingeben",
+        "submit": "Absenden",
+        "verifying": "Überprüfe...",
+        "error": "Falsches Passwort",
+        "failed": "Fehler bei der Überprüfung. Bitte versuche es erneut."
+    },
+    "NotFound": {
+        "title": "Seite nicht gefunden",
+        "description": "Die gesuchte Seite existiert nicht.",
+        "goHome": "Zur Startseite"
+    },
+    "Common": {
+        "loading": "Lädt..."
+    }
+}
