@@ -42,7 +42,7 @@ export default function PasswordLockGuard({ children }: { children: React.ReactN
   if (isChecking) {
     return (
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
-        <p className="text-gray-600 dark:text-gray-400">Loading...</p>
+        <p className="text-gray-600 dark:text-gray-400">Laden...</p>
       </div>
     );
   }

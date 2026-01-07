@@ -17,7 +17,7 @@ export async function GET(
 
     if (wishlist.length === 0) {
       return NextResponse.json(
-        { error: 'Wishlist not found' },
+        { error: 'Wunschliste nicht gefunden' },
         { status: 404 }
       );
     }
@@ -25,7 +25,7 @@ export async function GET(
     // Only return public wishlists
     if (!wishlist[0].isPublic) {
       return NextResponse.json(
-        { error: 'Wishlist not found' },
+        { error: 'Wunschliste nicht gefunden' },
         { status: 404 }
       );
     }
@@ -37,7 +37,7 @@ export async function GET(
   } catch (error) {
     console.error('Error fetching wishlist by slug:', error);
     return NextResponse.json(
-      { error: 'Failed to fetch wishlist' },
+      { error: 'Fehler beim Laden der Wunschliste' },
       { status: 500 }
     );
   }

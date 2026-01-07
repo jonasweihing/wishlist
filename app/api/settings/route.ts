@@ -17,10 +17,10 @@ export async function GET(request: NextRequest) {
 
     // Set defaults if not found
     if (!settingsObj.siteTitle) {
-      settingsObj.siteTitle = 'Wishlist';
+      settingsObj.siteTitle = 'Wunschliste';
     }
     if (!settingsObj.homepageSubtext) {
-      settingsObj.homepageSubtext = 'Browse and explore available wishlists';
+      settingsObj.homepageSubtext = 'Durchstöbere verfügbare Wunschlisten';
     }
 
     // Convert passwordLockEnabled to boolean
@@ -33,7 +33,7 @@ export async function GET(request: NextRequest) {
   } catch (error) {
     console.error('Error fetching settings:', error);
     return NextResponse.json(
-      { error: 'Failed to fetch settings' },
+      { error: 'Fehler beim Laden der Einstellungen' },
       { status: 500 }
     );
   }
@@ -46,7 +46,7 @@ export async function PUT(request: NextRequest) {
 
     if (!token) {
       return NextResponse.json(
-        { error: 'Not authenticated' },
+        { error: 'Nicht authentifiziert' },
         { status: 401 }
       );
     }
@@ -54,7 +54,7 @@ export async function PUT(request: NextRequest) {
     const payload = verifyAccessToken(token);
     if (!payload) {
       return NextResponse.json(
-        { error: 'Invalid or expired token' },
+        { error: 'Ungültiger oder abgelaufener Token' },
         { status: 401 }
       );
     }
@@ -238,12 +238,12 @@ export async function PUT(request: NextRequest) {
 
     return NextResponse.json({
       success: true,
-      message: 'Settings updated successfully',
+      message: 'Einstellungen erfolgreich aktualisiert',
     });
   } catch (error) {
     console.error('Error updating settings:', error);
     return NextResponse.json(
-      { error: 'Failed to update settings' },
+      { error: 'Fehler beim Aktualisieren der Einstellungen' },
       { status: 500 }
     );
   }

@@ -11,7 +11,7 @@ import ShareButton from '@/components/share-button';
 export default function Overview() {
     const [wishlists, setWishlists] = useState<Wishlist[]>([]);
     const [isLoading, setIsLoading] = useState(true);
-    const [settings, setSettings] = useState<Settings>({ siteTitle: 'Wishlist', homepageSubtext: 'Browse and explore available wishlists' });
+    const [settings, setSettings] = useState<Settings>({ siteTitle: 'Wunschliste', homepageSubtext: 'Durchstöbere verfügbare Wunschlisten' });
 
     useEffect(() => {
         fetchWishlists();
@@ -46,8 +46,8 @@ export default function Overview() {
                     subtitle={settings.homepageSubtext}
                     actions={
                         <ShareButton
-                            title="Check out this wishlist!"
-                            text="I thought you might be interested in this wishlist."
+                            title="Schau dir diese Wunschliste an!"
+                            text="Ich dachte, diese Wunschliste könnte dich interessieren."
                         />
                     }
                 />
@@ -57,11 +57,11 @@ export default function Overview() {
                     <div className="px-4 sm:px-0">
                         {isLoading ? (
                             <div className="text-center py-12">
-                                <p className="text-gray-600 dark:text-gray-400">Loading...</p>
+                                <p className="text-gray-600 dark:text-gray-400">Laden...</p>
                             </div>
                         ) : wishlists.length === 0 ? (
                             <div className="text-center py-12 bg-white dark:bg-gray-800 rounded-lg shadow">
-                                <p className="text-gray-500 dark:text-gray-400">No public wishlists available yet</p>
+                                <p className="text-gray-500 dark:text-gray-400">Keine öffentlichen Wunschlisten verfügbar</p>
                             </div>
                         ) : (
                             <div className="grid grid-cols-1 gap-6">

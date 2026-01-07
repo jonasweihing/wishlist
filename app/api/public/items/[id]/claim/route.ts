@@ -21,7 +21,7 @@ export async function POST(
 
     if (item.length === 0) {
       return NextResponse.json(
-        { error: 'Item not found' },
+        { error: 'Wunsch nicht gefunden' },
         { status: 404 }
       );
     }
@@ -29,7 +29,7 @@ export async function POST(
     // Check if item is already claimed
     if (item[0].claimedToken) {
       return NextResponse.json(
-        { error: 'Item is already claimed' },
+        { error: 'Wunsch ist bereits vergeben' },
         { status: 409 }
       );
     }
@@ -43,14 +43,14 @@ export async function POST(
 
     if (wishlist.length === 0) {
       return NextResponse.json(
-        { error: 'Wishlist not found' },
+        { error: 'Wunschliste nicht gefunden' },
         { status: 404 }
       );
     }
 
     if (!wishlist[0].isPublic) {
       return NextResponse.json(
-        { error: 'This wishlist is private' },
+        { error: 'Diese Wunschliste ist privat' },
         { status: 403 }
       );
     }
@@ -81,7 +81,7 @@ export async function POST(
   } catch (error) {
     console.error('Error claiming item:', error);
     return NextResponse.json(
-      { error: 'Failed to claim item' },
+      { error: 'Fehler beim Reservieren des Wunsches' },
       { status: 500 }
     );
   }

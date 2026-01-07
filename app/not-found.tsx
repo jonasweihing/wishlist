@@ -1,7 +1,7 @@
 // Root-level not-found page
 export default function RootNotFound() {
   return (
-    <html lang="en">
+    <html lang="de">
       <body>
         <div style={{
           minHeight: '100vh',
@@ -22,10 +22,10 @@ export default function RootNotFound() {
           }}>
             <div style={{ fontSize: '3.75rem', fontWeight: 'bold', color: '#1f2937' }}>404</div>
             <h1 style={{ fontSize: '1.5rem', fontWeight: '600', color: '#111827', marginTop: '1rem' }}>
-              Page Not Found
+              Seite nicht gefunden
             </h1>
             <p style={{ color: '#4b5563', marginTop: '1rem' }}>
-              The page you are looking for doesn't exist.
+              Die gesuchte Seite existiert nicht.
             </p>
             <a
               href="/"
@@ -40,7 +40,7 @@ export default function RootNotFound() {
                 textDecoration: 'none'
               }}
             >
-              Go Home
+              Zur Startseite
             </a>
           </div>
         </div>

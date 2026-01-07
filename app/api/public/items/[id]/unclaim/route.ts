@@ -20,7 +20,7 @@ export async function POST(
 
     if (item.length === 0) {
       return NextResponse.json(
-        { error: 'Item not found' },
+        { error: 'Wunsch nicht gefunden' },
         { status: 404 }
       );
     }
@@ -28,7 +28,7 @@ export async function POST(
     // Check if item is actually claimed
     if (!item[0].claimedToken) {
       return NextResponse.json(
-        { error: 'Item is not claimed' },
+        { error: 'Wunsch ist nicht vergeben' },
         { status: 400 }
       );
     }
@@ -42,14 +42,14 @@ export async function POST(
 
     if (wishlist.length === 0) {
       return NextResponse.json(
-        { error: 'Wishlist not found' },
+        { error: 'Wunschliste nicht gefunden' },
         { status: 404 }
       );
     }
 
     if (!wishlist[0].isPublic) {
       return NextResponse.json(
-        { error: 'This wishlist is private' },
+        { error: 'Diese Wunschliste ist privat' },
         { status: 403 }
       );
     }
@@ -57,7 +57,7 @@ export async function POST(
     // Verify name
     if (!name || item[0].claimedName?.toLowerCase().trim() !== name.toLowerCase().trim()) {
       return NextResponse.json(
-        { error: 'Name does not match the person who claimed this item.' },
+        { error: 'Der Name stimmt nicht mit der Person überein, die diesen Wunsch reserviert hat.' },
         { status: 403 }
       );
     }
@@ -77,7 +77,7 @@ export async function POST(
     return NextResponse.json(
       {
         success: true,
-        message: 'Item unclaimed successfully',
+        message: 'Reservierung erfolgreich aufgehoben',
         item: updatedItem[0],
       },
       { status: 200 }
@@ -85,7 +85,7 @@ export async function POST(
   } catch (error) {
     console.error('Error unclaiming item:', error);
     return NextResponse.json(
-      { error: 'Failed to unclaim item' },
+      { error: 'Fehler beim Freigeben des Wunsches' },
       { status: 500 }
     );
   }

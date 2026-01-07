@@ -11,7 +11,7 @@ export async function POST(request: NextRequest) {
 
     if (!password) {
       return NextResponse.json(
-        { error: 'Password is required' },
+        { error: 'Passwort ist erforderlich' },
         { status: 400 }
       );
     }
@@ -25,7 +25,7 @@ export async function POST(request: NextRequest) {
 
     if (hashSetting.length === 0) {
       return NextResponse.json(
-        { error: 'Password lock not configured' },
+        { error: 'Passwortschutz nicht konfiguriert' },
         { status: 400 }
       );
     }
@@ -38,7 +38,7 @@ export async function POST(request: NextRequest) {
       // Password correct - set a cookie
       const response = NextResponse.json({
         success: true,
-        message: 'Password verified',
+        message: 'Passwort verifiziert',
       });
 
       // Set an unlock cookie that expires in 24 hours
@@ -53,14 +53,14 @@ export async function POST(request: NextRequest) {
       return response;
     } else {
       return NextResponse.json(
-        { error: 'Incorrect password' },
+        { error: 'Falsches Passwort' },
         { status: 401 }
       );
     }
   } catch (error) {
     console.error('Error verifying password:', error);
     return NextResponse.json(
-      { error: 'Failed to verify password' },
+      { error: 'Fehler beim Überprüfen des Passworts' },
       { status: 500 }
     );
   }

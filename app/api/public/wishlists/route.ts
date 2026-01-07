@@ -18,7 +18,7 @@ export async function GET(request: NextRequest) {
   } catch (error) {
     console.error('Error fetching public wishlists:', error);
     return NextResponse.json(
-      { error: 'Failed to fetch wishlists' },
+      { error: 'Fehler beim Laden der Wunschlisten' },
       { status: 500 }
     );
   }

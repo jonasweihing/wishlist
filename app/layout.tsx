@@ -14,16 +14,16 @@ async function getSettings() {
     }, {} as Record<string, string>);
 
     return {
-      siteTitle: settingsObj.siteTitle || 'Wishlist',
-      homepageSubtext: settingsObj.homepageSubtext || 'Browse and explore available wishlists',
+      siteTitle: settingsObj.siteTitle || 'Wunschliste',
+      homepageSubtext: settingsObj.homepageSubtext || 'Durchstöbere verfügbare Wunschlisten',
       headerColorLight: settingsObj.headerColorLight || '#ffffff',
       primaryColor: settingsObj.primaryColor || '#4f46e5',
       backgroundColor: settingsObj.backgroundColor || '',
     };
   } catch (error) {
     return {
-      siteTitle: 'Wishlist',
-      homepageSubtext: 'Browse and explore available wishlists',
+      siteTitle: 'Wunschliste',
+      homepageSubtext: 'Durchstöbere verfügbare Wunschlisten',
       headerColorLight: '#ffffff',
       primaryColor: '#4f46e5',
       backgroundColor: '#f9fafb',
@@ -35,7 +35,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const settings = await getSettings();
   return {
     title: settings.siteTitle,
-    description: "Self-hosted wishlist application for families",
+    description: "Selbstgehostete Wunschlisten-App",
     icons: {
       icon: '/icon.svg',
     },
@@ -50,7 +50,7 @@ export default async function RootLayout({
   const settings = await getSettings();
 
   return (
-    <html lang="en">
+    <html lang="de">
       <body
         className="font-sans antialiased transition-colors duration-300"
         style={{
