@@ -19,7 +19,7 @@ export default function ItemForm({ item, onSubmit, onCancel, mode, error }: Item
       name: '',
       description: '',
       price: null,
-      currency: 'USD',
+      currency: process.env.DEFAULT_CURRENCY || 'USD',
       quantity: 1,
       imageUrl: '',
       purchaseUrls: [],

@@ -127,7 +127,7 @@ export default function PublicWishlist({ slug, showBackLink = true }: PublicWish
         if (!price) return null;
         return new Intl.NumberFormat('en-US', {
             style: 'currency',
-            currency: currency || 'USD',
+            currency: currency || process.env.DEFAULT_CURRENCY || 'USD',
         }).format(price);
     };
 

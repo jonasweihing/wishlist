@@ -16,7 +16,7 @@ export default function ItemForm({ initialData, onSubmit, onCancel, isEditing = 
     name: initialData?.name || '',
     description: initialData?.description || '',
     price: initialData?.price?.toString() || '',
-    currency: initialData?.currency || 'USD',
+    currency: initialData?.currency || process.env.DEFAULT_CURRENCY || 'USD',
     quantity: initialData?.quantity?.toString() || '1',
     imageUrl: initialData?.imageUrl || '',
     purchaseUrl: initialData?.purchaseUrls?.[0]?.url || '',
