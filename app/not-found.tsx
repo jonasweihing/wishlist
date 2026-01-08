@@ -1,50 +1,23 @@
-// Root-level not-found page
+import Link from 'next/link';
+
 export default function RootNotFound() {
   return (
-    <html lang="de">
-      <body>
-        <div style={{
-          minHeight: '100vh',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          fontFamily: 'system-ui, sans-serif',
-          padding: '1rem'
-        }}>
-          <div style={{
-            maxWidth: '28rem',
-            width: '100%',
-            textAlign: 'center',
-            padding: '2rem',
-            backgroundColor: 'white',
-            borderRadius: '0.5rem',
-            boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)'
-          }}>
-            <div style={{ fontSize: '3.75rem', fontWeight: 'bold', color: '#1f2937' }}>404</div>
-            <h1 style={{ fontSize: '1.5rem', fontWeight: '600', color: '#111827', marginTop: '1rem' }}>
-              Seite nicht gefunden
-            </h1>
-            <p style={{ color: '#4b5563', marginTop: '1rem' }}>
-              Die gesuchte Seite existiert nicht.
-            </p>
-            <a
-              href="/"
-              style={{
-                display: 'inline-block',
-                marginTop: '1.5rem',
-                padding: '0.75rem 1.5rem',
-                backgroundColor: '#2563eb',
-                color: 'white',
-                borderRadius: '0.5rem',
-                fontWeight: '600',
-                textDecoration: 'none'
-              }}
-            >
-              Zur Startseite
-            </a>
-          </div>
-        </div>
-      </body>
-    </html>
+    <div className="min-h-screen flex items-center justify-center p-4 font-sans">
+      <div className="max-w-md w-full text-center p-8 bg-white dark:bg-gray-800 rounded-lg shadow-xl">
+        <div className="text-6xl font-bold text-gray-900 dark:text-gray-100 mb-4">404</div>
+        <h1 className="text-2xl font-semibold text-gray-800 dark:text-gray-200 mb-4">
+          Seite nicht gefunden
+        </h1>
+        <p className="text-gray-600 dark:text-gray-400 mb-6">
+          Die gesuchte Seite existiert nicht.
+        </p>
+        <Link
+          href="/"
+          className="inline-block px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-lg transition-colors"
+        >
+          Zur Startseite
+        </Link>
+      </div>
+    </div>
   );
 }

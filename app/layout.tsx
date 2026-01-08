@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
+
+export const dynamic = 'force-dynamic';
 import { AuthProvider } from "@/lib/auth-context";
 import { ThemeProvider } from "@/components/theme-provider";
 import { db, settings } from "@/lib/db";
