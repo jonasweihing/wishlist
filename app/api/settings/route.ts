@@ -23,6 +23,11 @@ export async function GET(request: NextRequest) {
       settingsObj.homepageSubtext = 'Durchstöbere verfügbare Wunschlisten';
     }
 
+    // Check if site is unlocked via cookie
+    const unlockedCookie = request.cookies.get('site_unlocked');
+    const isUnlocked = unlockedCookie?.value === 'true';
+    (settingsObj as any).isUnlocked = isUnlocked;
+
     // Convert passwordLockEnabled to boolean
     (settingsObj as any).passwordLockEnabled = settingsObj.passwordLockEnabled === 'true';
 

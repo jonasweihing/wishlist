@@ -21,7 +21,7 @@ export default function PasswordLockGuard({ children }: { children: React.ReactN
         const response = await fetch('/api/settings');
         const data = await response.json();
 
-        if (data.success && data.settings.passwordLockEnabled) {
+        if (data.success && data.settings.passwordLockEnabled && !data.settings.isUnlocked) {
           setIsLocked(true);
           // Redirect to lock page
           router.push('/lock');
