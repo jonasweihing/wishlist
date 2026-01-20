@@ -1,5 +1,7 @@
 'use client';
 
+import RichTextEditor from '@/components/rich-text-editor';
+
 import { useState } from 'react';
 import { type Settings, type Wishlist } from '@/lib/api';
 
@@ -95,12 +97,10 @@ export default function SettingsSection({ settings, wishlists, onUpdate }: Setti
                 <label className="block text-base font-medium text-gray-700 dark:text-gray-300 mb-2">
                   Untertitel der Startseite
                 </label>
-                <textarea
-                  rows={2}
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:text-white"
-                  value={settingsForm.homepageSubtext}
-                  onChange={(e) =>
-                    setSettingsForm((prev) => ({ ...prev, homepageSubtext: e.target.value }))
+                <RichTextEditor
+                  value={settingsForm.homepageSubtext || ''}
+                  onChange={(value) =>
+                    setSettingsForm((prev) => ({ ...prev, homepageSubtext: value }))
                   }
                   placeholder="Durchstöbere verfügbare Wunschlisten"
                 />
@@ -277,7 +277,10 @@ export default function SettingsSection({ settings, wishlists, onUpdate }: Setti
               </div>
               <div>
                 <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Untertitel der Startseite</p>
-                <p className="text-base text-gray-900 dark:text-white">{settings.homepageSubtext}</p>
+                <div
+                  className="text-base text-gray-900 dark:text-white prose prose-sm dark:prose-invert max-w-none"
+                  dangerouslySetInnerHTML={{ __html: settings.homepageSubtext }}
+                />
               </div>
               <div>
                 <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Startseite</p>

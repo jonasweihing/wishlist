@@ -31,9 +31,10 @@ export default function Header({ title, subtitle, imageUrl, actions, maxWidth = 
                 {title}
               </h1>
               {subtitle && (
-                <p className={`text-xl sm:text-2xl text-gray-600 mb-6 ${imageUrl ? '' : 'max-w-3xl'}`}>
-                  {subtitle}
-                </p>
+                <div
+                  className={`text-xl sm:text-2xl text-gray-600 mb-6 ${imageUrl ? '' : 'max-w-3xl'} prose prose-lg dark:prose-invert`}
+                  dangerouslySetInnerHTML={{ __html: subtitle }}
+                />
               )}
               {actions && (
                 <div className={`mt-auto flex flex-col sm:flex-row items-center gap-3 ${imageUrl ? 'justify-start' : 'justify-center'}`}>

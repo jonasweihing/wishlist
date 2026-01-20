@@ -86,9 +86,10 @@ export default function Overview() {
                                                     {wishlist.name}
                                                 </h3>
                                                 {wishlist.description && (
-                                                    <p className="text-base text-gray-600 dark:text-gray-300 mb-4 line-clamp-3">
-                                                        {wishlist.description}
-                                                    </p>
+                                                    <div
+                                                        className="text-base text-gray-600 dark:text-gray-300 mb-4 line-clamp-3 prose prose-sm dark:prose-invert max-w-none"
+                                                        dangerouslySetInnerHTML={{ __html: wishlist.description }}
+                                                    />
                                                 )}
                                             </div>
                                         </div>

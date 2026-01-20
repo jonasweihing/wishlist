@@ -1,5 +1,7 @@
 'use client';
 
+import RichTextEditor from '@/components/rich-text-editor';
+
 import { useState } from 'react';
 import { type Wishlist, type Item, itemsApi } from '@/lib/api';
 import ImageUpload from '@/components/image-upload';
@@ -311,17 +313,15 @@ export default function WishlistCard({
                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                       Beschreibung
                     </label>
-                    <textarea
+                    <RichTextEditor
                       value={editForm.description}
-                      onChange={(e) =>
+                      onChange={(value) =>
                         setEditForm((prev) => ({
                           ...prev,
-                          description: e.target.value,
+                          description: value,
                         }))
                       }
-                      className="text-base px-2 py-1 border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:text-white w-full"
                       placeholder="Beschreibung"
-                      rows={2}
                     />
                   </div>
 
@@ -358,9 +358,10 @@ export default function WishlistCard({
                     /{wishlist.slug}
                   </p>
                   {wishlist.description && (
-                    <p className="text-base text-gray-600 dark:text-gray-400 mb-1">
-                      {wishlist.description}
-                    </p>
+                    <div
+                      className="text-base text-gray-600 dark:text-gray-400 mb-1 prose prose-sm dark:prose-invert max-w-none"
+                      dangerouslySetInnerHTML={{ __html: wishlist.description }}
+                    />
                   )}
                   <div className="flex flex-col gap-1 mt-2">
                     <p className="text-base text-gray-500 dark:text-gray-500">

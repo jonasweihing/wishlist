@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import ImageUpload from '@/components/image-upload';
+import RichTextEditor from '@/components/rich-text-editor';
 
 interface WishlistFormData {
   name: string;
@@ -107,16 +108,15 @@ export default function CreateWishlistModal({
               <label className="block text-base font-medium text-gray-900 dark:text-gray-200 mb-1">
                 Beschreibung
               </label>
-              <textarea
-                rows={3}
-                className="w-full px-3 py-2 border-2 border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-gray-900 dark:text-white dark:bg-gray-700"
+              <RichTextEditor
                 value={formData.description}
-                onChange={(e) =>
+                onChange={(value) =>
                   setFormData((prev) => ({
                     ...prev,
-                    description: e.target.value,
+                    description: value,
                   }))
                 }
+                placeholder="Beschreibung"
               />
             </div>
 
